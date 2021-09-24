@@ -1,6 +1,6 @@
 import React,{ Component }  from 'react';
 import { Form, Container, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
-import { AiOutlineUser, AiOutlineLock, AiOutlineLogin } from 'react-icons/ai';
+import { AiOutlineUser, AiOutlineLock, AiOutlineMail, AiOutlineKey } from 'react-icons/ai';
 import './signup.css';
 
 
@@ -14,6 +14,7 @@ class Signup extends React.Component{
            confirmPassword:'',
            firstname:'',
            lastname:'',
+           isspinning: false
        } 
        this.handleChange = this.handleChange.bind(this)
        this.signupButton = this.signupButton.bind(this)
@@ -31,14 +32,9 @@ class Signup extends React.Component{
 
     signupButton = (event) =>{
         event.preventDefault()
-        console.log('username',
-        this.state.email,
-        this.state.username, 
-       this.state.password,
-       this.state.confirmPassword,
-        this.state.firstname,
-       this.state.lastname,
-        )
+        this.setState({
+            isspinning: true
+          });
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -51,24 +47,41 @@ class Signup extends React.Component{
                 last_name: this.state.lastname,
                 is_superuser: false,
                 is_staff: false,
+                error: ''
             })
         };
         fetch('https://andesrestaurant.herokuapp.com/api/register', requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error))
+            .then(response => {
+                this.setState({
+                    isspinning: false
+                  });
+                if(!response.ok) {
+                    throw new Error(response.status);
+                  }
+                else{
+                    return response.json();
+                    } 
+            })
+            .then(data => this.setState({
+                error : ''
+            }))
+            .catch(error => 
+                this.setState({
+                    error : 'Fill all the fields !'
+                }))
     }
 
     render(){
         return (
             <div className={`formCard mx-auto ml-10 mt-5`}>
                                 <Form>
-                                    <h4 className="text-center">Signup</h4>
+                                {this.state.error != '' ? <h3 className="text-center"  style ={{color:'red'}}>{this.state.error}</h3> : undefined }
+                                    <h4 className="text-center">Sign up</h4>
                                     <Form.Row>
                                         <Form.Group as={Col} className="mb-3">
                                             <InputGroup className="mb-2">
                                                 <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                                    <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
                                                 </InputGroup.Prepend>
                                                 <Form.Control type="text" className='input' name="email" placeholder="Email" required autoFocus 
                                                 value={this.state.email}
@@ -113,7 +126,7 @@ class Signup extends React.Component{
                                         <Form.Group as={Col} className="mb-3">
                                             <InputGroup className="mb-2">
                                                 <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                                    <InputGroup.Text><AiOutlineKey /></InputGroup.Text>
                                                 </InputGroup.Prepend>
                                                 <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus 
                                                 value={this.state.username}
@@ -155,11 +168,9 @@ class Signup extends React.Component{
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row className='d-flex justify-content-center h-10'>
-                                        
-                                        <Button  className={`w-50 gradient`} type="submit" onClick={this.loginAction}>
-                                            Log in
-                                        </Button>
-                                   
+                                    {this.state.isspinning ? <Spinner style ={{width: '3rem', height: '3rem'}} animation="border" variant="primary"/> :                                          <Button  className={`w-50 gradient`} type="submit" onClick={this.signupButton}>
+                                            Sign up
+                                        </Button>}   
                                     </Form.Row>
                                 </Form>
                             </div>

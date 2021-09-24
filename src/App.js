@@ -1,8 +1,8 @@
 import logo from './logo.svg';
 import './App.css';
-import { Link, BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './loginView/login';
+import { Link, BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import Main from './mainView/Main';
+import Dashboard from './dashboard/Dashboard';
 import React from 'react';
 
 function App() {
@@ -11,7 +11,8 @@ function App() {
       <Router>
         <Switch>
           <Route path="/" exact component={Main} />
-          {/* <Route path="/" exact component={Login} />
+          <Route path="/dashboard" component={Dashboard} />
+           {/*
           <Route path="/" exact component={Login} /> */}
         </Switch>
       </Router>

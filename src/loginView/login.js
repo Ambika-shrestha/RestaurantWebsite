@@ -1,6 +1,7 @@
 import React,{ Component }  from 'react';
+import { Route , withRouter} from 'react-router-dom';
 import { Form, Container, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
-import { AiOutlineUser, AiOutlineLock, AiOutlineLogin } from 'react-icons/ai';
+import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 import './login.css';
 
 
@@ -11,7 +12,9 @@ class Login extends React.Component{
       super(props)
       this.state = {
           username: '',
-          password: ''
+          password: '',
+          isspinning: false,
+          error: ''
       }
       this.loginAction = this.loginAction.bind(this);
       this.handleChange = this.handleChange.bind(this);
@@ -19,6 +22,11 @@ class Login extends React.Component{
 
     loginAction = (event) =>{
         event.preventDefault()
+        //ture or false
+            this.setState({
+                isspinning: true
+              });
+        
         console.log('username',this.state.username,this.state.password)
         const requestOptions = {
             method: 'POST',
@@ -26,9 +34,28 @@ class Login extends React.Component{
             body: JSON.stringify({ username: this.state.username, password: this.state.password })
         };
         fetch('https://andesrestaurant.herokuapp.com/api/login', requestOptions)
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error))
+            .then(response => {
+                this.setState({
+                    isspinning: false
+                  });
+                if(!response.ok) {
+                    throw new Error(response.status);
+                  }
+                else{
+                    return response.json();
+                    } 
+            })
+            .then(data => {
+                this.setState({
+                    error : ''
+                })
+               this.props.history.push("/dashboard")
+            })
+            .catch(error => {
+                this.setState({
+                    error : 'Unauthorized user !'
+                })
+            })
     }
     
     handleChange = (event) =>{
@@ -45,7 +72,8 @@ class Login extends React.Component{
            
                 <div className={`formCard my-auto mx-auto ml-10`}>
                                 <Form>
-                                    <h4 className="text-center">Login</h4>
+                                {this.state.error != '' ? <h3 className="text-center"  style ={{color:'red'}}>{this.state.error}</h3> : undefined }
+                                    <h4 className="text-center">Log in</h4>
                                     <Form.Row>
                                         <Form.Group as={Col} className="mb-3">
                                             <InputGroup className="mb-2">
@@ -77,11 +105,9 @@ class Login extends React.Component{
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row className='d-flex justify-content-center h-10'>
-                                        
-                                        <Button  className={`w-50 gradient`} type="submit" onClick={this.loginAction}>
+                                    {this.state.isspinning ? <Spinner style ={{width: '3rem', height: '3rem'}}  animation="border" variant="primary"/> :  <Button  className={`w-50 gradient ml-2`} type="submit" onClick={this.loginAction}>
                                             Log in
-                                        </Button>
-                                   
+                                        </Button>} 
                                     </Form.Row>
                                 </Form>
                             </div>
@@ -89,4 +115,5 @@ class Login extends React.Component{
     }
 }
 
-export default Login;
+
+export default withRouter(Login);
