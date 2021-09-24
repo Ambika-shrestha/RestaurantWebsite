@@ -63,7 +63,7 @@ class Signup extends React.Component{
         return (
             <div className={`formCard mx-auto ml-10 mt-5`}>
                                 <Form>
-                                    <h4 className="text-center">Login</h4>
+                                    <h4 className="text-center">Signup</h4>
                                     <Form.Row>
                                         <Form.Group as={Col} className="mb-3">
                                             <InputGroup className="mb-2">
@@ -104,7 +104,7 @@ class Signup extends React.Component{
                                                 value={this.state.lastname}
                                                 onChange={this.handleChange}/>
                                                 <Form.Control.Feedback type="invalid">
-                                                    Username is required.
+                                                    Last name is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
                                         </Form.Group>
@@ -145,11 +145,11 @@ class Signup extends React.Component{
                                                 <InputGroup.Prepend>
                                                     <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
                                                 </InputGroup.Prepend>
-                                                <Form.Control type="password" name="confirmPassword" className='input' placeholder="confirmPassword" required 
+                                                <Form.Control type="password" name="confirmPassword" className='input' placeholder="Confirm Password" required 
                                                  value={this.state.confirmPassword}
                                                  onChange={this.handleChange}/>
                                                 <Form.Control.Feedback type="invalid">
-                                                    Password is required.
+                                                    Confirm password is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
                                         </Form.Group>
