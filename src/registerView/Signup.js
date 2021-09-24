@@ -1,10 +1,10 @@
 import React,{ Component }  from 'react';
+import { Form, Container, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
+import { AiOutlineUser, AiOutlineLock, AiOutlineLogin } from 'react-icons/ai';
 import './signup.css';
 
 
 class Signup extends React.Component{
-
-
     constructor(props){
        super(props)
        this.state={
@@ -61,70 +61,110 @@ class Signup extends React.Component{
 
     render(){
         return (
-            <div>
-            {/* <Container maxWidth="xs" align= "right"> 
-                <form>
-                    <Typography variant='h5' align='center'>
-                       SignUp
-                    </Typography>
-                    <Grid container spacing={3}>
-                    <Grid item xs={12}>
-                        <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                            <TextField fullWidth label="Email" name="email" size="small" variant="outlined" 
-                            onChange={this.handleChange}
-                            value={this.state.email}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                            fullWidth
-                            label="Password"
-                            name="password"
-                            size="small"
-                            type="password"
-                            variant="outlined"
-                            onChange={this.handleChange}
-                            value={this.state.password}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                            fullWidth
-                            label="Confirm Password"
-                            name="confirmPassword"
-                            size="small"
-                            type="password"
-                            variant="outlined"
-                            onChange={this.handleChange}
-                            value={this.state.confirmPassword}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField fullWidth label="username" name="username" size="small" variant="outlined" 
-                            onChange={this.handleChange}
-                            value={this.state.username}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField fullWidth label="firstname" name="firstname" size="small" variant="outlined" 
-                            onChange={this.handleChange}
-                            value={this.state.firstname}/>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField fullWidth label="lastname" name="lastname" size="small" variant="outlined" 
-                            onChange={this.handleChange}
-                            value={this.state.lastname}/>
-                        </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button color="secondary" fullWidth type="submit" variant="contained" onClick={this.signupButton}>
-                        SignUp
-                        </Button>
-                    </Grid>
-                    </Grid>
-                </form>
-    </Container> */}
-    </div>
+            <div className={`formCard mx-auto ml-10 mt-5`}>
+                                <Form>
+                                    <h4 className="text-center">Login</h4>
+                                    <Form.Row>
+                                        <Form.Group as={Col} className="mb-3">
+                                            <InputGroup className="mb-2">
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                                <Form.Control type="text" className='input' name="email" placeholder="Email" required autoFocus 
+                                                value={this.state.email}
+                                                onChange={this.handleChange}/>
+                                                <Form.Control.Feedback type="invalid">
+                                                    Username is required.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} className="mb-3">
+                                            <InputGroup className="mb-2">
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                                <Form.Control type="text" className='input' name="firstname" placeholder="First name" required autoFocus 
+                                                value={this.state.firstname}
+                                                onChange={this.handleChange}/>
+                                                <Form.Control.Feedback type="invalid">
+                                                   First name is required.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} className="mb-3">
+                                            <InputGroup className="mb-2">
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                                <Form.Control type="text" className='input' name="lastname" placeholder="Last name" required autoFocus 
+                                                value={this.state.lastname}
+                                                onChange={this.handleChange}/>
+                                                <Form.Control.Feedback type="invalid">
+                                                    Username is required.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} className="mb-3">
+                                            <InputGroup className="mb-2">
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                                <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus 
+                                                value={this.state.username}
+                                                onChange={this.handleChange}/>
+                                                <Form.Control.Feedback type="invalid">
+                                                    Username is required.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} className="mb-3">
+                                            <InputGroup className="mb-2">
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                                <Form.Control type="password" name="password" className='input' placeholder="Password" required 
+                                                 value={this.state.password}
+                                                 onChange={this.handleChange}/>
+                                                <Form.Control.Feedback type="invalid">
+                                                    Password is required.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} className="mb-3">
+                                            <InputGroup className="mb-2">
+                                                <InputGroup.Prepend>
+                                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
+                                                </InputGroup.Prepend>
+                                                <Form.Control type="password" name="confirmPassword" className='input' placeholder="confirmPassword" required 
+                                                 value={this.state.confirmPassword}
+                                                 onChange={this.handleChange}/>
+                                                <Form.Control.Feedback type="invalid">
+                                                    Password is required.
+                                                </Form.Control.Feedback>
+                                            </InputGroup>
+                                        </Form.Group>
+                                    </Form.Row>
+                                    <Form.Row className='d-flex justify-content-center h-10'>
+                                        
+                                        <Button  className={`w-50 gradient`} type="submit" onClick={this.loginAction}>
+                                            Log in
+                                        </Button>
+                                   
+                                    </Form.Row>
+                                </Form>
+                            </div>
+          
+
         )
     }
 }
