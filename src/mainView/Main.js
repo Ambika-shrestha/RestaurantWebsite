@@ -33,7 +33,7 @@ class Main extends React.Component {
 
         return (
             <div className={`mh-100 h-100`}
-                style={{ backgroundImage: `url(${background})` }}>
+                style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover' }}>
                 <Row className={`mr-0 ml-0`} >
                     <Col>
                     </Col>
