@@ -62,13 +62,16 @@ class Signup extends React.Component{
                     return response.json();
                     } 
             })
-            .then(data => this.setState({
+            .then(data => {
+            this.setState({
                 error : ''
-            }))
-            .catch(error => 
+            })
+        })
+            .catch(error => {
                 this.setState({
-                    error : 'Fill all the fields !'
-                }))
+                    error : 'User already exist'
+                })
+        })
     }
 
     render(){
