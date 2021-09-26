@@ -1,6 +1,6 @@
-import React,{ Component }  from 'react';
-import { Route , withRouter} from 'react-router-dom';
-import { Form, Container, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
+import React from 'react';
+import { withRouter} from 'react-router-dom';
+import { Form, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 import './login.css';
 
@@ -72,7 +72,7 @@ class Login extends React.Component{
            
                 <div className={`formCard my-auto mx-auto ml-10`}>
                                 <Form>
-                                {this.state.error != '' ? <h3 className="text-center"  style ={{color:'red'}}>{this.state.error}</h3> : undefined }
+                                {this.state.error !== '' ? <h3 className="text-center"  style ={{color:'red'}}>{this.state.error}</h3> : undefined }
                                     <h4 className="text-center">Log in</h4>
                                     <Form.Row>
                                         <Form.Group as={Col} className="mb-3">

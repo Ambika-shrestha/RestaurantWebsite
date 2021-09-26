@@ -1,5 +1,5 @@
-import React,{ Component }  from 'react';
-import { Form, Container, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
+import React from 'react';
+import { Form, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
 import { AiOutlineUser, AiOutlineLock, AiOutlineMail, AiOutlineKey } from 'react-icons/ai';
 import './signup.css';
 
@@ -14,7 +14,9 @@ class Signup extends React.Component{
            confirmPassword:'',
            firstname:'',
            lastname:'',
-           isspinning: false
+           error:'',
+           isspinning: false,
+           
        } 
        this.handleChange = this.handleChange.bind(this)
        this.signupButton = this.signupButton.bind(this)
@@ -32,6 +34,16 @@ class Signup extends React.Component{
 
     signupButton = (event) =>{
         event.preventDefault()
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            console.log('wrong validaion')
+            this.setState({
+                error: 'Please enter valid inputs'
+            })
+            event.stopPropagation();
+            return
+        }
+        debugger;
         this.setState({
             isspinning: true
           });
@@ -46,8 +58,7 @@ class Signup extends React.Component{
                 first_name: this.state.firstname,
                 last_name: this.state.lastname,
                 is_superuser: false,
-                is_staff: false,
-                error: ''
+                is_staff: false
             })
         };
         fetch('https://andesrestaurant.herokuapp.com/api/register', requestOptions)
@@ -78,7 +89,7 @@ class Signup extends React.Component{
         return (
             <div className={`formCard mx-auto ml-10 mt-5`}>
                                 <Form>
-                                {this.state.error != '' ? <h3 className="text-center"  style ={{color:'red'}}>{this.state.error}</h3> : undefined }
+                                {this.state.error !== '' ? <h3 className="text-center"  style ={{color:'red'}}>{this.state.error}</h3> : undefined }
                                     <h4 className="text-center">Sign up</h4>
                                     <Form.Row>
                                         <Form.Group as={Col} className="mb-3">
@@ -89,8 +100,8 @@ class Signup extends React.Component{
                                                 <Form.Control type="text" className='input' name="email" placeholder="Email" required autoFocus 
                                                 value={this.state.email}
                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
-                                                    Username is required.
+                                                <Form.Control.Feedback  type="invalid">
+                                                    Email is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
                                         </Form.Group>
@@ -171,7 +182,7 @@ class Signup extends React.Component{
                                         </Form.Group>
                                     </Form.Row>
                                     <Form.Row className='d-flex justify-content-center h-10'>
-                                    {this.state.isspinning ? <Spinner style ={{width: '3rem', height: '3rem'}} animation="border" variant="primary"/> :                                          <Button  className={`w-50 gradient`} type="submit" onClick={this.signupButton}>
+                                    {this.state.isspinning ? <Spinner style ={{width: '3rem', height: '3rem'}} animation="border" variant="primary"/> : <Button  className={`w-50 gradient`}  onClick={this.signupButton} type="submit">
                                             Sign up
                                         </Button>}   
                                     </Form.Row>

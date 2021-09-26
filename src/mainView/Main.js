@@ -1,5 +1,5 @@
-import React,{ Component }  from 'react';
-import { Form, Container, Row, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
+import React from 'react';
+import { Row, Col, Button } from 'react-bootstrap'
 import './main.css';
 import Login from '../loginView/login';
 import Signup from '../registerView/Signup';
