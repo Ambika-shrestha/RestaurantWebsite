@@ -52,7 +52,12 @@ class Signup extends React.Component {
             })
             return false;
         }
-
+        if (!this.checkPassword()) {
+            this.setState({
+                passwordError: "Minimum eight characters,at least one uppercase letter, one lowercase letter, one number and one special character"
+            })
+            return false;
+        }
         if (this.state.firstname === '') {
             this.setState({
                 firstnameError: "Please enter firstname"
@@ -95,6 +100,14 @@ class Signup extends React.Component {
     checkEmail = () => {
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if (!filter.test(this.state.email)) {
+            return false;
+        }
+        return true
+    }
+
+    checkPassword = () => {
+        var filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!filter.test(this.state.password)) {
             return false;
         }
         return true
@@ -164,7 +177,8 @@ class Signup extends React.Component {
         const name = target.name;
 
         this.setState({
-            [name]: value
+            [name]: value,
+            [name + 'Error']: '' 
         });
     }
 
