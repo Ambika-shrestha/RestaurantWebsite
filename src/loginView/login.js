@@ -14,50 +14,80 @@ class Login extends React.Component{
           username: '',
           password: '',
           isspinning: false,
-          error: ''
+          error: '',
+          usernameError:'',
+          passwordError:''
       }
       this.loginAction = this.loginAction.bind(this);
       this.handleChange = this.handleChange.bind(this);
     }
-
+    
+    validation =() =>{
+        if(this.state.username === '' && this.state.password === ''){
+            this.setState({
+                usernameError: "Please enter username",
+                passwordError: "Please enter password"
+            })
+            return false;
+        }
+        if(this.state.username === ''){
+            this.setState({
+                usernameError: "Please enter username"
+            })
+            return false;
+        }
+        if(this.state.password === ''){
+            this.setState({
+                passwordError: "Please enter password"
+            })
+            return false;
+        }
+        return true
+    }
     loginAction = (event) =>{
         event.preventDefault()
         //ture or false
-            this.setState({
-                isspinning: true
-              });
-        
-        console.log('username',this.state.username,this.state.password)
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username: this.state.username, password: this.state.password })
-        };
-        fetch('https://andesrestaurant.herokuapp.com/api/login', requestOptions)
-            .then(response => {
-                this.setState({
-                    isspinning: false
-                  });
-                if(!response.ok) {
-                    throw new Error(response.status);
-                  }
-                else{
-                    return response.json();
-                    } 
-            })
-            .then(data => {
-                this.setState({
-                    error : ''
-                })
-               this.props.history.push("/dashboard")
-            })
-            .catch(error => {
-                this.setState({
-                    error : 'Unauthorized user !'
-                })
-            })
+        if(this.validation()){
+           this.loginApi()
+        }   
     }
+
+    loginApi = () =>{
+        this.setState({
+            isspinning: true
+          });
     
+    console.log('username',this.state.username,this.state.password)
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: this.state.username, password: this.state.password })
+    };
+    fetch('https://andesrestaurant.herokuapp.com/api/login', requestOptions)
+        .then(response => {
+            this.setState({
+                isspinning: false
+              });
+            if(!response.ok) {
+                throw new Error(response.status);
+              }
+            else{
+                return response.json();
+                } 
+        })
+        .then(data => {
+            this.setState({
+                error : ''
+            })
+           this.props.history.push("/dashboard")
+        })
+        .catch(error => {
+            this.setState({
+                error : 'Unauthorized user !'
+            })
+        })
+    } 
+
     handleChange = (event) =>{
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -83,7 +113,7 @@ class Login extends React.Component{
                                                 <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus 
                                                 value={this.state.username}
                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
+                                                <Form.Control.Feedback type="invalid" style={{display:this.state.usernameError === '' ? 'none' : 'block' }}>
                                                     Username is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
@@ -98,7 +128,7 @@ class Login extends React.Component{
                                                 <Form.Control type="password" name="password" className='input' placeholder="Password" required 
                                                  value={this.state.password}
                                                  onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
+                                                <Form.Control.Feedback type="invalid" style={{display:this.state.passwordError === '' ? 'none' : 'block' }}>
                                                     Password is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>

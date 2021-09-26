@@ -16,22 +16,84 @@ class Signup extends React.Component{
            lastname:'',
            error:'',
            isspinning: false,
-           
+           emailError:'',
+           firstnameError:'',
+           lastnameError:'',
+           usernameError:'',
+           passwordError:'',
+           confirmPasswordError:''
        } 
        this.handleChange = this.handleChange.bind(this)
        this.signupButton = this.signupButton.bind(this)
     }
-
-    handleChange = (event) =>{
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-
-        this.setState({
-            [name]: value
-        }); 
+ 
+    validation =() =>{
+        if(this.state.username === '' && this.state.password === '' && this.state.email === '' 
+        && this.state.firstname ===''  && this.state.lastname ===''  && this.state.confirmPassword ===''){
+            this.setState({
+                emailError:'Please enter email',
+           firstnameError:'Please enter first name',
+           lastnameError:'Please enter last name',
+           usernameError:'Please enter username',
+           passwordError:'Please enter password',
+           confirmPasswordError:'Please enter confirm password'
+            })
+            return false;
+        }
+        if(this.state.email === ''){
+            this.setState({
+                emailError: "Please enter email"
+            })
+            return false;
+        }
+        if(!this.checkEmail()){
+            this.setState({
+                emailError: "Invalid email"
+            })
+            return false;
+        }
+       
+        if(this.state.firstname === ''){
+            this.setState({
+                firstnameError: "Please enter firstname"
+            })
+            return false;
+        }
+        if(this.state.lastname === ''){
+            this.setState({
+                lastnameError: "Please enter lastname"
+            })
+            return false;
+        }
+        if(this.state.username === ''){
+            this.setState({
+                usernameError: "Please enter username"
+            })
+            return false;
+        }
+        if(this.state.password === ''){
+            this.setState({
+                passwordError: "Please enter password"
+            })
+            return false;
+        }
+        if(this.state.confirmPassword === ''){
+            this.setState({
+                confirmPasswordError: "Please enter confirm password"
+            })
+            return false;
+        }
+        return true
     }
 
+    checkEmail =() => {
+        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        if (!filter.test(this.state.email)) {
+        alert('Please provide a valid email address');
+        return false;
+     }
+     return true
+    }
     signupButton = (event) =>{
         event.preventDefault()
         const form = event.currentTarget;
@@ -43,7 +105,12 @@ class Signup extends React.Component{
             event.stopPropagation();
             return
         }
-        debugger;
+        if(this.validation()){
+            this.signupApi()
+         }  
+    }
+
+    signupApi = ()=>{
         this.setState({
             isspinning: true
           });
@@ -84,6 +151,16 @@ class Signup extends React.Component{
                 })
         })
     }
+  
+    handleChange = (event) =>{
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        }); 
+    }
 
     render(){
         return (
@@ -97,11 +174,11 @@ class Signup extends React.Component{
                                                 <InputGroup.Prepend>
                                                     <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
                                                 </InputGroup.Prepend>
-                                                <Form.Control type="text" className='input' name="email" placeholder="Email" required autoFocus 
+                                                <Form.Control type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" className='input' name="email" placeholder="Email" required autoFocus 
                                                 value={this.state.email}
                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback  type="invalid">
-                                                    Email is required.
+                                                <Form.Control.Feedback  type="invalid" style={{display:this.state.emailError === '' ? 'none' : 'block' }}>
+                                                    {this.state.emailError}
                                                 </Form.Control.Feedback>
                                             </InputGroup>
                                         </Form.Group>
@@ -115,7 +192,7 @@ class Signup extends React.Component{
                                                 <Form.Control type="text" className='input' name="firstname" placeholder="First name" required autoFocus 
                                                 value={this.state.firstname}
                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
+                                                <Form.Control.Feedback type="invalid" style={{display:this.state.firstnameError === '' ? 'none' : 'block' }}>
                                                    First name is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
@@ -130,7 +207,7 @@ class Signup extends React.Component{
                                                 <Form.Control type="text" className='input' name="lastname" placeholder="Last name" required autoFocus 
                                                 value={this.state.lastname}
                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
+                                                <Form.Control.Feedback type="invalid"style={{display:this.state.lastnameError === '' ? 'none' : 'block' }}>
                                                     Last name is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
@@ -145,7 +222,7 @@ class Signup extends React.Component{
                                                 <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus 
                                                 value={this.state.username}
                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
+                                                <Form.Control.Feedback type="invalid" style={{display:this.state.usernameError === '' ? 'none' : 'block' }}>
                                                     Username is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
@@ -160,7 +237,7 @@ class Signup extends React.Component{
                                                 <Form.Control type="password" name="password" className='input' placeholder="Password" required 
                                                  value={this.state.password}
                                                  onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
+                                                <Form.Control.Feedback type="invalid" style={{display:this.state.passwordError === '' ? 'none' : 'block' }}>
                                                     Password is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
@@ -175,7 +252,7 @@ class Signup extends React.Component{
                                                 <Form.Control type="password" name="confirmPassword" className='input' placeholder="Confirm Password" required 
                                                  value={this.state.confirmPassword}
                                                  onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid">
+                                                <Form.Control.Feedback type="invalid" style={{display:this.state.confirmPasswordError === '' ? 'none' : 'block' }}>
                                                     Confirm password is required.
                                                 </Form.Control.Feedback>
                                             </InputGroup>
