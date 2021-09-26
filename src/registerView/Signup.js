@@ -4,97 +4,103 @@ import { AiOutlineUser, AiOutlineLock, AiOutlineMail, AiOutlineKey } from 'react
 import './signup.css';
 
 
-class Signup extends React.Component{
-    constructor(props){
-       super(props)
-       this.state={
-           email: '',
-           username:'',
-           password:'',
-           confirmPassword:'',
-           firstname:'',
-           lastname:'',
-           error:'',
-           isspinning: false,
-           emailError:'',
-           firstnameError:'',
-           lastnameError:'',
-           usernameError:'',
-           passwordError:'',
-           confirmPasswordError:''
-       } 
-       this.handleChange = this.handleChange.bind(this)
-       this.signupButton = this.signupButton.bind(this)
+class Signup extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            email: '',
+            username: '',
+            password: '',
+            confirmPassword: '',
+            firstname: '',
+            lastname: '',
+            error: '',
+            isspinning: false,
+            emailError: '',
+            firstnameError: '',
+            lastnameError: '',
+            usernameError: '',
+            passwordError: '',
+            confirmPasswordError: ''
+        }
+        this.handleChange = this.handleChange.bind(this)
+        this.signupButton = this.signupButton.bind(this)
     }
- 
-    validation =() =>{
-        if(this.state.username === '' && this.state.password === '' && this.state.email === '' 
-        && this.state.firstname ===''  && this.state.lastname ===''  && this.state.confirmPassword ===''){
+
+    validation = () => {
+        if (this.state.username === '' && this.state.password === '' && this.state.email === ''
+            && this.state.firstname === '' && this.state.lastname === '' && this.state.confirmPassword === '') {
             this.setState({
-                emailError:'Please enter email',
-           firstnameError:'Please enter first name',
-           lastnameError:'Please enter last name',
-           usernameError:'Please enter username',
-           passwordError:'Please enter password',
-           confirmPasswordError:'Please enter confirm password'
+                emailError: 'Please enter email',
+                firstnameError: 'Please enter first name',
+                lastnameError: 'Please enter last name',
+                usernameError: 'Please enter username',
+                passwordError: 'Please enter password',
+                confirmPasswordError: 'Please enter confirm password'
             })
             return false;
         }
-        if(this.state.email === ''){
+        if (this.state.email === '') {
             this.setState({
                 emailError: "Please enter email"
             })
             return false;
         }
-        if(!this.checkEmail()){
+        if (!this.checkEmail()) {
             this.setState({
                 emailError: "Invalid email"
             })
             return false;
         }
-       
-        if(this.state.firstname === ''){
+
+        if (this.state.firstname === '') {
             this.setState({
                 firstnameError: "Please enter firstname"
             })
             return false;
         }
-        if(this.state.lastname === ''){
+        if (this.state.lastname === '') {
             this.setState({
                 lastnameError: "Please enter lastname"
             })
             return false;
         }
-        if(this.state.username === ''){
+        if (this.state.username === '') {
             this.setState({
                 usernameError: "Please enter username"
             })
             return false;
         }
-        if(this.state.password === ''){
+        if (this.state.password === '') {
             this.setState({
                 passwordError: "Please enter password"
             })
             return false;
         }
-        if(this.state.confirmPassword === ''){
+        if (this.state.confirmPassword === '') {
             this.setState({
                 confirmPasswordError: "Please enter confirm password"
+            })
+            return false;
+        }
+        if (this.state.password !== this.state.confirmPassword) {
+            this.setState({
+                confirmPasswordError: "Confirm password does not match with password"
             })
             return false;
         }
         return true
     }
 
-    checkEmail =() => {
+    checkEmail = () => {
         var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         if (!filter.test(this.state.email)) {
-        alert('Please provide a valid email address');
-        return false;
-     }
-     return true
+            return false;
+        }
+        return true
     }
-    signupButton = (event) =>{
+
+    signupButton = (event) => {
         event.preventDefault()
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
@@ -105,21 +111,21 @@ class Signup extends React.Component{
             event.stopPropagation();
             return
         }
-        if(this.validation()){
+        if (this.validation()) {
             this.signupApi()
-         }  
+        }
     }
 
-    signupApi = ()=>{
+    signupApi = () => {
         this.setState({
             isspinning: true
-          });
+        });
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 email: this.state.email,
-                username: this.state.username, 
+                username: this.state.username,
                 password: this.state.password,
                 confirmPassword: this.state.confirmPassword,
                 first_name: this.state.firstname,
@@ -132,140 +138,140 @@ class Signup extends React.Component{
             .then(response => {
                 this.setState({
                     isspinning: false
-                  });
-                if(!response.ok) {
+                });
+                if (!response.ok) {
                     throw new Error(response.status);
-                  }
-                else{
+                }
+                else {
                     return response.json();
-                    } 
+                }
             })
             .then(data => {
-            this.setState({
-                error : ''
+                this.setState({
+                    error: ''
+                })
             })
-        })
             .catch(error => {
                 this.setState({
-                    error : 'User already exist'
+                    error: 'User already exist'
                 })
-        })
+            })
     }
-  
-    handleChange = (event) =>{
+
+    handleChange = (event) => {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
 
         this.setState({
             [name]: value
-        }); 
+        });
     }
 
-    render(){
+    render() {
         return (
             <div className={`formCard mx-auto ml-10 mt-5`}>
-                                <Form>
-                                {this.state.error !== '' ? <h3 className="text-center"  style ={{color:'red'}}>{this.state.error}</h3> : undefined }
-                                    <h4 className="text-center">Sign up</h4>
-                                    <Form.Row>
-                                        <Form.Group as={Col} className="mb-3">
-                                            <InputGroup className="mb-2">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <Form.Control type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" className='input' name="email" placeholder="Email" required autoFocus 
-                                                value={this.state.email}
-                                                onChange={this.handleChange}/>
-                                                <Form.Control.Feedback  type="invalid" style={{display:this.state.emailError === '' ? 'none' : 'block' }}>
-                                                    {this.state.emailError}
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Form.Group as={Col} className="mb-3">
-                                            <InputGroup className="mb-2">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <Form.Control type="text" className='input' name="firstname" placeholder="First name" required autoFocus 
-                                                value={this.state.firstname}
-                                                onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid" style={{display:this.state.firstnameError === '' ? 'none' : 'block' }}>
-                                                   First name is required.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Form.Group as={Col} className="mb-3">
-                                            <InputGroup className="mb-2">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <Form.Control type="text" className='input' name="lastname" placeholder="Last name" required autoFocus 
-                                                value={this.state.lastname}
-                                                onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid"style={{display:this.state.lastnameError === '' ? 'none' : 'block' }}>
-                                                    Last name is required.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Form.Group as={Col} className="mb-3">
-                                            <InputGroup className="mb-2">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineKey /></InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus 
-                                                value={this.state.username}
-                                                onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid" style={{display:this.state.usernameError === '' ? 'none' : 'block' }}>
-                                                    Username is required.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Form.Group as={Col} className="mb-3">
-                                            <InputGroup className="mb-2">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <Form.Control type="password" name="password" className='input' placeholder="Password" required 
-                                                 value={this.state.password}
-                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid" style={{display:this.state.passwordError === '' ? 'none' : 'block' }}>
-                                                    Password is required.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Form.Row>
-                                    <Form.Row>
-                                        <Form.Group as={Col} className="mb-3">
-                                            <InputGroup className="mb-2">
-                                                <InputGroup.Prepend>
-                                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
-                                                </InputGroup.Prepend>
-                                                <Form.Control type="password" name="confirmPassword" className='input' placeholder="Confirm Password" required 
-                                                 value={this.state.confirmPassword}
-                                                 onChange={this.handleChange}/>
-                                                <Form.Control.Feedback type="invalid" style={{display:this.state.confirmPasswordError === '' ? 'none' : 'block' }}>
-                                                    Confirm password is required.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Form.Row>
-                                    <Form.Row className='d-flex justify-content-center h-10'>
-                                    {this.state.isspinning ? <Spinner style ={{width: '3rem', height: '3rem'}} animation="border" variant="primary"/> : <Button  className={`w-50 gradient`}  onClick={this.signupButton} type="submit">
-                                            Sign up
-                                        </Button>}   
-                                    </Form.Row>
-                                </Form>
-                            </div>
-          
+                <Form>
+                    {this.state.error !== '' ? <h3 className="text-center" style={{ color: 'red' }}>{this.state.error}</h3> : undefined}
+                    <h4 className="text-center">Sign up</h4>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3">
+                            <InputGroup className="mb-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" className='input' name="email" placeholder="Email" required autoFocus
+                                    value={this.state.email}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.emailError === '' ? 'none' : 'block' }}>
+                                    {this.state.emailError}
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3">
+                            <InputGroup className="mb-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control type="text" className='input' name="firstname" placeholder="First name" required autoFocus
+                                    value={this.state.firstname}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.firstnameError === '' ? 'none' : 'block' }}>
+                                    {this.state.firstnameError}
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3">
+                            <InputGroup className="mb-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control type="text" className='input' name="lastname" placeholder="Last name" required autoFocus
+                                    value={this.state.lastname}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.lastnameError === '' ? 'none' : 'block' }}>
+                                    {this.state.lastnameError}
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3">
+                            <InputGroup className="mb-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><AiOutlineKey /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus
+                                    value={this.state.username}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.usernameError === '' ? 'none' : 'block' }}>
+                                    {this.state.usernameError}
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3">
+                            <InputGroup className="mb-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control type="password" name="password" className='input' placeholder="Password" required
+                                    value={this.state.password}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.passwordError === '' ? 'none' : 'block' }}>
+                                    {this.state.passwordError}
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row>
+                        <Form.Group as={Col} className="mb-3">
+                            <InputGroup className="mb-2">
+                                <InputGroup.Prepend>
+                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
+                                </InputGroup.Prepend>
+                                <Form.Control type="password" name="confirmPassword" className='input' placeholder="Confirm Password" required
+                                    value={this.state.confirmPassword}
+                                    onChange={this.handleChange} />
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.confirmPasswordError === '' ? 'none' : 'block' }}>
+                                    {this.state.confirmPasswordError}
+                                </Form.Control.Feedback>
+                            </InputGroup>
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row className='d-flex justify-content-center h-10'>
+                        {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> : <Button className={`w-50 gradient`} onClick={this.signupButton} type="submit">
+                            Sign up
+                        </Button>}
+                    </Form.Row>
+                </Form>
+            </div>
+
 
         )
     }
