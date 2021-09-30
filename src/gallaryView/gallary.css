@@ -1,0 +1,48 @@
+@media screen and (min-device-width:698px) {
+  div#showgrid {
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+.row {
+  width: 100%;
+  margin: 0px 0px 20px 0px;
+}
+
+@media (min-device-width: 698px) {
+  .column {
+    width: 30%;
+    height: 230px;
+    display: inline;
+    float: left;
+  }
+}
+
+.column {
+  width: 30%;
+  height: 230px;
+  margin-left: 20px;
+  background-color: white;
+  border-radius: 5px !important;
+  overflow: hidden;
+}
+
+#imgPlace{
+    position:relative;
+}
+#imgPlace label{
+    position:absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1;
+    background-color: orange;
+    height: 30px;
+    min-width: 30px;
+    text-align: center;
+    padding-top: 2px;
+    border-radius: 15px;
+}
+#imgPlace img{
+    position:relative;
+}

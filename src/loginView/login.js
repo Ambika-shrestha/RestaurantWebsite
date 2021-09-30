@@ -76,6 +76,7 @@ class Login extends React.Component {
                 }
             })
             .then(data => {
+                localStorage.setItem('token', data['key']);
                 this.setState({
                     error: ''
                 })
