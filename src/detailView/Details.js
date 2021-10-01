@@ -15,6 +15,8 @@ class Details extends React.Component {
             datas:[],
             reviews:[]
         }
+        console.log('dff', this.props.data)
+
        // this.reviewsApi();
         //this.ratingChanged = this.ratingChanged.bind(this);
     }

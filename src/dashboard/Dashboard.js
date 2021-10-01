@@ -10,11 +10,15 @@ class Dashboard extends React.Component {
     constructor(props){
         super(props)
         this.state={
+            details:1
         }
         this.gridSelect= this.gridSelect.bind(this);
     }
    
     gridSelect(id){
+        this.setState({
+            details: id
+        })
         console.log('id',id);
     }
 
@@ -29,7 +33,7 @@ class Dashboard extends React.Component {
                     <Gallary select={this.gridSelect}/>
                 </Col>
                 <Col md={4} style={{backgroundColor:'white'}}>
-                    <Details/>
+                    <Details data={this.state.id}/>
                 </Col>
             </Row>
         </div>

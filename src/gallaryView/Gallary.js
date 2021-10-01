@@ -37,7 +37,6 @@ class Gallary extends React.Component {
        const target = event.target;
        console.log('event clicked', target)
        this.props.select(target.id)
-
     }
 
     gallaryApi = () => {
