@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import images from '../img/images.jpg';
 import './detail.css';
-import { IconName } from "react-icons/bs";
+import { FaLocationArrow, FaPhoneAlt, FaStar} from 'react-icons/fa';
 
 
 class Details extends React.Component {
@@ -48,12 +48,12 @@ class Details extends React.Component {
                 {this.state.datas.map(datas => (<div>
                     <img style={{ width: '100%', height: '200px', paddingTop:'15px'}} src={images} alt='pic' />
                     <i class="fas fa-band-aid"></i> 
-                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}><b>{datas.name}</b></li>
-                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{datas.address}</li>
-                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{datas.contact}</li>
-                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{datas.avg}</li> 
+                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'orange' }}><b>{datas.name}</b></li>
+                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='black' className="mr-2"/>{datas.address}</li>
+                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='black' className="mr-2"/>{datas.contact}</li>
+                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}><FaStar color='yellow' className="mr-2"/>{datas.avg.toFixed(1)}</li> 
                     <div>
-                       <h4>Reviews</h4>
+                       <h4 className='p-2'>Reviews</h4>
                        <p>verry good</p>
                    </div> 
                 </div>
