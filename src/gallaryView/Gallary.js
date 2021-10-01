@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import burger from '../img/burger.jpg';
+import { Button } from 'react-bootstrap';
 import './gallary.css';
 
 
@@ -10,8 +11,13 @@ class Gallary extends React.Component {
         super(props)
         this.state = {
             resturants: [],
+            error:''
         }
-        this.gallaryApi()
+    }
+
+    componentDidMount() {
+        this.onSubmit = this.onSubmit.bind(this);
+        this.gallaryApi()   
     }
 
     dimensional = (data) => {
@@ -24,6 +30,14 @@ class Gallary extends React.Component {
             temparr.push(subarr)
         }
         return temparr
+    }
+
+    onSubmit = (event) => {
+        //event.stopPropogation()
+       const target = event.target;
+       console.log('event clicked', target)
+       this.props.select(target.id)
+
     }
 
     gallaryApi = () => {
@@ -42,7 +56,6 @@ class Gallary extends React.Component {
             })
             .then(data => {
                 let resturants = this.dimensional(data)
-                console.log('ff',resturants)
                 this.setState({
                     resturants: resturants
                 })
@@ -56,17 +69,20 @@ class Gallary extends React.Component {
 
     render() {
         return (
-            <div id="showgrid">
+            <div className ="showgrid">
                 {this.state.resturants.map((reseturants, index) => {
-                    return (<div class="row">
+                    return (<div className="row" key={'row'+ index}>
                         {reseturants.map((resturant, index) => {
-                            return (<div class="column shadow-sm bg-white rounded">
-                                <div id="imgPlace">
-                                    <img style={{ width: '100%', height: '160px' }} src={burger} alt='pic' />
+                            return (<div className="column shadow-sm bg-white rounded"  key={'column'+ index} >
+                                <div className="buttonPlace">
+                                <div className="imgPlace">
+                                    <img style={{ width: '100%', height: '160px' }} src={burger} alt='pic'/>
                                     <label>{resturant.avg.toFixed(1)}</label>
                                 </div>
                                 <li style={{ paddingLeft: '10px', listStyleType: 'none', marginTop: '5px', marginBottom: '3px' }}><b>{resturant.name}</b></li>
                                 <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{resturant.address}</li>
+                                <Button className='btn' onClick={this.onSubmit} id={resturant.id}></Button>
+                                </div>
                             </div>)
                         })
                         }

@@ -98,7 +98,7 @@ class Signup extends React.Component {
     }
 
     checkEmail = () => {
-        var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        let filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
         if (!filter.test(this.state.email)) {
             return false;
         }
@@ -106,7 +106,7 @@ class Signup extends React.Component {
     }
 
     checkPassword = () => {
-        var filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        let filter = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!filter.test(this.state.password)) {
             return false;
         }

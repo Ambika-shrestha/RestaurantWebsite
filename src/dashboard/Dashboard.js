@@ -1,13 +1,21 @@
 import React from 'react'
-import { Row, Col, Button } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import Details from '../detailView/Details';
 import Gallary from '../gallaryView/Gallary';
 
 
 
 class Dashboard extends React.Component {
-    constructor(props) {
+
+    constructor(props){
         super(props)
+        this.state={
+        }
+        this.gridSelect= this.gridSelect.bind(this);
+    }
+   
+    gridSelect(id){
+        console.log('id',id);
     }
 
     render() {
@@ -18,7 +26,7 @@ class Dashboard extends React.Component {
                 </div>
             <Row>
                 <Col md={8} style={{backgroundColor:'rgba(247,247,247,1)'}}>
-                    <Gallary/>
+                    <Gallary select={this.gridSelect}/>
                 </Col>
                 <Col md={4} style={{backgroundColor:'white'}}>
                     <Details/>
