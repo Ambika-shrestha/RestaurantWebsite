@@ -98,7 +98,7 @@ class Signup extends React.Component {
     }
 
     checkEmail = () => {
-        let filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+        let filter = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
         if (!filter.test(this.state.email)) {
             return false;
         }
