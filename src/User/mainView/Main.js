@@ -3,7 +3,7 @@ import { Row, Col, Button } from 'react-bootstrap'
 import './main.css';
 import Login from '../loginView/login';
 import Signup from '../registerView/Signup';
-import background from "../img/food.jpeg";
+import background from "../../img/food.jpeg";
 
 
 class Main extends React.Component {

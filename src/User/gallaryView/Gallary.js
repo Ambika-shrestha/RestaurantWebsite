@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import burger from '../img/burger.jpg';
+import burger from '../../img/burger.jpg';
 import { Button } from 'react-bootstrap';
 import './gallary.css';
 

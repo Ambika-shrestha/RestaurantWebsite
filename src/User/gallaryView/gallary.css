@@ -53,7 +53,7 @@
 .buttonPlace Button{
   position:absolute;
   z-index: 1;
-  background-color: transparent;
+  background-color: transparent !important;;
   height: 230px;
   width: 100%;
   text-align: center;
@@ -61,11 +61,13 @@
   bottom: 0;
   padding: 0px;
   border: none;
+  -webkit-tap-highlight-color: transparent;
 }
 .buttonPlace img{
   position:relative;
 }
 
- .btn:hover{
-  background-color: rgba(0, 0, 0, 0.308);
+.btn:hover:active:focus{
+  background: rgba(0, 0, 0, 0.3) !important;
+  box-shadow: none;
 }

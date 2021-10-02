@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import images from '../img/images.jpg';
+import images from '../../img/images.jpg';
 import './detail.css';
 import ReactStars from "react-rating-stars-component";
 import { FaLocationArrow, FaPhoneAlt, FaStar} from 'react-icons/fa';
