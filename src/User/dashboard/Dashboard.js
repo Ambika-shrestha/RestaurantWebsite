@@ -10,16 +10,15 @@ class Dashboard extends React.Component {
     constructor(props){
         super(props)
         this.state={
-            details:1
+            details: null
         }
         this.gridSelect= this.gridSelect.bind(this);
     }
    
-    gridSelect(id){
+    gridSelect(resturant){
         this.setState({
-            details: id
+            details: resturant
         })
-        console.log('id',id);
     }
 
     render() {
@@ -29,12 +28,13 @@ class Dashboard extends React.Component {
                     <h4 style={{textAlign:'center', color:'orange', paddingTop:'10px'}}>Resturant Review</h4>
                 </div>
             <Row>
-                <Col md={8} style={{backgroundColor:'rgba(247,247,247,1)'}}>
+                <Col md={8} style={{backgroundColor:'rgba(247,247,247,1)', height:'100vh', overflow:'auto'}}>
                     <Gallary select={this.gridSelect}/>
                 </Col>
-                <Col md={4} style={{backgroundColor:'white'}}>
-                    <Details data={this.state.id}/>
-                </Col>
+                {this.state.details !== null  && <Col md={4} style={{backgroundColor:'white'}}>
+                    <Details resturant={this.state.details}/>
+                </Col>}
+                
             </Row>
         </div>
         )

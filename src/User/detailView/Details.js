@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import images from '../../img/images.jpg';
 import './detail.css';
-import ReactStars from "react-rating-stars-component";
+import StarRatings from 'react-star-ratings';
 import { FaLocationArrow, FaPhoneAlt, FaStar} from 'react-icons/fa';
 import { Col, Row } from 'react-bootstrap';
 
@@ -12,25 +12,37 @@ class Details extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            datas:[],
-            reviews:[]
-        }
-        console.log('dff', this.props.data)
-
-       // this.reviewsApi();
-        //this.ratingChanged = this.ratingChanged.bind(this);
+            resturant:this.props.resturant,
+            reviews:[],
+            disabled: true
+        }  
+        this.dateConversion = this.dateConversion.bind(this)
     }
 
-    ratingChanged = (event) => {
+    componentDidUpdate(prevProps, prevState) {
+       
+        if (prevProps.resturant !== this.props.resturant) {
+            this.setState({
+                resturant:this.props.resturant
+            })
+          this.reviewsApi();
+        }
+    }
+
+    changeRating = (event) => {
         alert('hello')
     }
-
+     
+    dateConversion = (dateUnix) =>{
+        const date = new Date(dateUnix * 1000);
+        return date.toLocaleString()
+    }
     reviewsApi =() => {
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'token ' + localStorage.getItem('token'), }
         };
-        fetch('https://andesrestaurant.herokuapp.com/api/restaurants/reviews', requestOptions)
+        fetch('https://andesrestaurant.herokuapp.com/api/restaurants/'+this.props.resturant.id+'/reviews', requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(response.status);
@@ -57,38 +69,36 @@ class Details extends React.Component {
             <div> 
                <div>
                     <img style={{ width: '100%', height: '200px', paddingTop:'15px'}} src={images} alt='pic' />
-                    <li style={{  listStyleType: 'none', color: 'orange',fontSize:'1.5rem' }}><b>Momo</b></li>
-                    <li style={{  listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' className="mr-2"/>Paris</li>
-                    <li style={{  listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' className="mr-2"/>0123456789</li>
-                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaStar color='orange' className="mr-2"/>5</li> 
-                    <div>
-                       <h4 className='pt-2'>Reviews</h4>
-                       <li style={{ listStyleType: 'none'}}>Ambika Shrestha</li>
-                       <li style={{ listStyleType: 'none'}}>
-                       <Row style={{margin:'0px'}}>
-                           <Col md={3.5} >
-                           <ReactStars
-                            count={5}
-                            onChange={this.ratingChanged}
-                            size={24}
-                            activeColor="#ffd700"/>
-                          </Col>
-                           <Col md={8} > <h6 style={{marginTop:'10px'}}> 2027-12-5 </h6></Col>
-                       </Row></li>
-                       <li style={{listStyleType: 'none'}}><label>verry good</label></li>   
+                    <li style={{  listStyleType: 'none', color: 'orange',fontSize:'1.5rem' }}><b>{this.state.resturant.name}</b></li>
+                    <li style={{  listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' className="mr-2"/>{this.state.resturant.address}</li>
+                    <li style={{  listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' className="mr-2"/>{this.state.resturant.contact}</li>
+                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaStar color='orange' className="mr-2"/>{this.state.resturant.avg.toFixed(1)}</li> 
+                    <h4 className='pt-2'>Reviews</h4>
+                    <div className="overflow-auto" style={{height:'285px'}} > 
+                       {this.state.reviews.map((review, index) =>
+                        {
+                            return (<div className='border-bottom' key={'review'+ index}>
+                                <li style={{ listStyleType: 'none'}}><b>{review.user.first_name + ' '+ review.user.last_name}</b></li>
+                                <li style={{ listStyleType: 'none'}}>
+                                <Row style={{margin:'0px'}}>
+                                    <Col md={3.5} >
+                                    <StarRatings
+                                        rating={review.rating}
+                                        starRatedColor="orange"
+                                        numberOfStars={5}
+                                        name='rating'
+                                        starDimension='20px'
+                                        starSpacing="2px"
+                                    />
+                                    </Col>
+                                    <Col md={8} > <h6 style={{marginTop:'7px'}}> {this.dateConversion(review.date)} </h6></Col>
+                                </Row></li>
+                                <li style={{listStyleType: 'none'}}><label>{review.comment}</label></li>  
+                           </div>)
+                        }
+                       )} 
+ 
                    </div>
-                    {/* {this.state.reviews.map(reviews => (<div>
-                       <h4 className='pt-2'>Reviews</h4>
-                       <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'orange' }}>{reviews.name}</li>
-                        <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}> <ReactStars
-                            count={5}
-                            onChange={this.ratingChanged}
-                            size={24}
-                            activeColor="#ffd700"
-                        />{reviews.address}</li>
-                        <textarea disabled></textarea>
-                   </div>
-                    ))}  */}
                 </div>      
             </div>
         )

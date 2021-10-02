@@ -11,6 +11,7 @@ class Gallary extends React.Component {
         super(props)
         this.state = {
             resturants: [],
+            mainResturantList: [],
             error:''
         }
     }
@@ -35,8 +36,11 @@ class Gallary extends React.Component {
     onSubmit = (event) => {
         //event.stopPropogation()
        const target = event.target;
-       console.log('event clicked', target)
-       this.props.select(target.id)
+       const resturant = this.state.mainResturantList.filter(dict => parseInt(dict.id) === parseInt( target.id))
+       if(resturant.length > 0){
+        this.props.select(resturant[0])
+       }
+       event.preventDefault()
     }
 
     gallaryApi = () => {
@@ -54,9 +58,11 @@ class Gallary extends React.Component {
                 }
             })
             .then(data => {
+                this.props.select(data[0])
                 let resturants = this.dimensional(data)
                 this.setState({
-                    resturants: resturants
+                    resturants: resturants,
+                    mainResturantList: data
                 })
             })
             .catch(error => {
