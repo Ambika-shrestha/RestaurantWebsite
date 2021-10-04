@@ -3,8 +3,7 @@ import { withRouter } from 'react-router-dom';
 import './reviewpop.css';
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import StarRatings from 'react-star-ratings';
-import {DatePicker, subDays, setStartDate, startDate} from 'react-datepicker';
-import { FaLocationArrow, FaPhoneAlt, FaStar, FaPlusCircle } from 'react-icons/fa';
+import {DatePicker} from 'react-datepicker';
 
 
 
@@ -16,12 +15,10 @@ class ReviewPop extends React.Component {
             resturant: this.props.resturant,
             reviews: [],
             comment: '',
-            dateOfVisit: '',
-            datePicker:'',
-            startDate:null
+            dateOfVisit: null,
+            startDate:new Date(),
+            rating: 0
         }
-        // this.addReviewbtn = this.addReviewbtn.bind(this)
-        this.datePicker = this.datePicker.bind(this)
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -33,22 +30,22 @@ class ReviewPop extends React.Component {
         }
     }
 
-    changeRating(newRating, name) {
+    changeRating = (newratings) => {
         this.setState({
-            rating: newRating
+            rating: newratings
         });
+    }
+
+    didSelectDate = (selectedDate) => {
+        this.setState({
+            dateOfVisit: selectedDate
+        })
     }
 
 
     handleClick = () => {
         this.props.toggle();
     };
-
-    datePicker = () => {
-        this.setState({
-            startDate: new Date().toLocaleDateString()
-        })
-      };
 
     getreviewsApi = () => {
         const requestOptions = {
@@ -117,21 +114,22 @@ class ReviewPop extends React.Component {
 
     render() {
         return (
-            <div className="popup  d-flex justify-content-center align-items-center  ">
-                <div className='bg-white w-50 h-75 '>
+            <div className="popup  d-flex justify-content-center align-items-center rounded overflow-hidden">
+                <div className='bg-white w-25 h-75 '>
                     <h3 className='mt-3 text-center'>{this.state.resturant.name}</h3>
                     <h6 className='mb-4'>{this.state.resturant.address}</h6>
                     <h5>Reviews</h5>
                     <Row className='row justify-content-center'>
                         <Col md={3.5} >
                             <StarRatings
-                                rating={0}
+                                rating={this.state.rating}
                                 changeRating={this.changeRating}
                                 starRatedColor="orange"
                                 numberOfStars={5}
                                 name='rating'
                                 starDimension='27px'
                                 starSpacing="2px"
+                                name='rating'
                             />
                         </Col>
                     </Row>
@@ -149,9 +147,7 @@ class ReviewPop extends React.Component {
                             <Col>
                                 <DatePicker
                                     selected={this.state.startDate}
-                                    onChange={(date) => setStartDate(date)}
-                                    minDate={subDays(new Date(), 0)}
-                                    placeholderText="Select a date after 5 days ago"
+                                    onChange={this.didSelectDate}
                                 />
                             </Col>
                         </Row>
