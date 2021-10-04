@@ -8,7 +8,7 @@ import ReviewPop from '../reviewPopUp/ReviewPop';
 
 class Dashboard extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state={
             details: null,
@@ -18,8 +18,8 @@ class Dashboard extends React.Component {
         this.gridSelect= this.gridSelect.bind(this);
         this.addReview= this.addReview.bind(this);
     }
-   
-    gridSelect(resturant){
+
+    gridSelect(resturant) {
         this.setState({
             details: resturant
         })

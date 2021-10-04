@@ -13,12 +13,16 @@ class Details extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            resturant:this.props.resturant,
-            reviews:[],
+            resturant: this.props.resturant,
+            reviews: [],
             disabled: true
-        }  
+        }
         this.dateConversion = this.dateConversion.bind(this)
         this.popUp = this.popUp.bind(this)
+    }
+
+    componentDidMount() {
+        this.reviewsApi();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -27,7 +31,7 @@ class Details extends React.Component {
                 resturant:this.props.resturant,
                 addReview: this.props.addReview
             })
-          this.reviewsApi();
+            this.reviewsApi();
         }
     }
 
@@ -45,7 +49,7 @@ class Details extends React.Component {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Authorization': 'token ' + localStorage.getItem('token'), }
         };
-        fetch('https://andesrestaurant.herokuapp.com/api/restaurants/'+this.props.resturant.id+'/reviews', requestOptions)
+        fetch('https://andesrestaurant.herokuapp.com/api/restaurants/' + this.props.resturant.id + '/reviews', requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(response.status);
@@ -55,9 +59,9 @@ class Details extends React.Component {
                 }
             })
             .then(data => {
-                console.log('data',data)
+                console.log('data', data)
                 this.setState({
-                    reviews:data
+                    reviews: data
                 })
             })
             .catch(error => {
@@ -102,10 +106,10 @@ class Details extends React.Component {
                                 <li style={{listStyleType: 'none'}}><label>{review.comment}</label></li>  
                            </div>)
                         }
-                       )} 
- 
-                   </div>
-                </div>      
+                        )}
+
+                    </div>
+                </div>
             </div>
         )
     }
