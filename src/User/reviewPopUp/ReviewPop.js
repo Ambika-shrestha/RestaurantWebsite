@@ -15,10 +15,11 @@ class ReviewPop extends React.Component {
             resturant: this.props.resturant,
             reviews: [],
             comment: '',
-            dateOfVisit: null,
-            startDate: new Date(),
+            dateOfVisit: new Date(),
             rating: 0
         }
+
+        this.submitButtonClick = this.submitButtonClick.bind(this);
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -43,75 +44,13 @@ class ReviewPop extends React.Component {
         })
     }
 
+    submitButtonClick = (event) => {
+        console.log("Submit Button Click");
+    }
 
     handleClick = () => {
         this.props.toggle();
     };
-
-    getreviewsApi = () => {
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'token ' + localStorage.getItem('token'), }
-        };
-        fetch('https://andesrestaurant.herokuapp.com/api/restaurants/' + this.props.resturant.id + '/reviews', requestOptions)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(response.status);
-                }
-                else {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                console.log('data', data)
-                this.setState({
-                    reviews: data
-                })
-            })
-            .catch(error => {
-                this.setState({
-                    error: 'Unknown Error'
-                })
-            })
-    }
-
-    addReviewsApi = () => {
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                comment: this.state.comment,
-                dateOfVisit: this.state.dateOfVisit,
-            })
-        };
-        fetch('https://andesrestaurant.herokuapp.com/api/register', requestOptions)
-            .then(response => {
-                this.setState({
-                    isspinning: false
-                });
-                if (!response.ok) {
-                    throw new Error(response.status);
-                }
-                else {
-                    return response.json();
-                }
-            })
-            .then(data => {
-                localStorage.setItem('token', data['key']);
-                this.setState({
-                    error: ''
-                })
-                if (data['user']['is_superuser'] === false && data['user']['is_staff'] === false) {
-                    this.props.history.push("/dashboard")
-                }
-            })
-            .catch(error => {
-                this.setState({
-                    error: error
-                })
-            })
-    }
-
 
     render() {
         return (
@@ -147,14 +86,15 @@ class ReviewPop extends React.Component {
                             <Col className='d-flex justify-content-start'>
                                 <DatePicker
                                     className='d-flex justify-content-start'
-                                    selected={this.state.startDate}
-                                    onChange={this.didSelectDate}
-
+                                    selected={this.state.dateOfVisit}
+                                    maxDate={new Date()}
+                                    onChange={date => this.didSelectDate(date)}
+                                    dateFormat="dd/MM/yyyy"
                                 />
                             </Col>
                         </Row>
                         <div>
-                            <Button type="submit" className='mr-3 w-25' onClick={this.addReviewbtn} >Submit</Button>
+                            <Button type="submit" className='mr-3 w-25' onClick={this.submitButtonClick} >Submit</Button>
                             <Button className='bg-danger w-25' onClick={this.handleClick}>Close</Button>
                         </div>
                     </div>
