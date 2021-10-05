@@ -11,7 +11,6 @@ class Gallary extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            resturants: [],
             mainResturantList: [],
             error: ''
         }
@@ -20,18 +19,6 @@ class Gallary extends React.Component {
     componentDidMount() {
         this.onSubmit = this.onSubmit.bind(this);
         this.gallaryApi()
-    }
-
-    dimensional = (data) => {
-        let temparr = []
-        for (let i = 0; i < data.length; i += 3) {
-            let subarr = []
-            for (let j = i; j < i + 3 && j < data.length; j++) {
-                subarr.push(data[j])
-            }
-            temparr.push(subarr)
-        }
-        return temparr
     }
 
     onSubmit = (event) => {
@@ -60,9 +47,7 @@ class Gallary extends React.Component {
             })
             .then(data => {
                 this.props.select(data[0])
-                let resturants = this.dimensional(data)
                 this.setState({
-                    resturants: resturants,
                     mainResturantList: data
                 })
             })
@@ -76,26 +61,6 @@ class Gallary extends React.Component {
     render() {
         return (
             <div>
-                {/* {this.state.resturants.map((reseturants, index) => {
-                    return (<div className="row"
-                     key={'row' + index}>
-                        {reseturants.map((resturant, index) => {
-                            return (<div className="column shadow-sm bg-white rounded" key={'column' + index} >
-                                <div className="buttonPlace">
-                                    <div className="imgPlace">
-                                        <img style={{ width: '100%', height: '160px' }} src={burger} alt='pic' />
-                                        <label>{resturant.avg.toFixed(1)}</label>
-                                    </div>
-                                    <li style={{ paddingLeft: '10px', listStyleType: 'none', marginTop: '5px', marginBottom: '3px' }}><b>{resturant.name}</b></li>
-                                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{resturant.address}</li>
-                                    <Button className='btn' onClick={this.onSubmit} id={resturant.id}></Button>
-                                </div>
-                            </div>)
-                        })
-                        }
-                    </div>)
-                })} */}
-
                 <div className="row p-0 m-0">
                     {
                         this.state.mainResturantList.map((resturant, index) => {
