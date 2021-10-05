@@ -1,8 +1,9 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import burger from '../../img/burger.jpg';
-import { Button } from 'react-bootstrap';
+import { Button, Row } from 'react-bootstrap';
 import './gallary.css';
+import { height } from 'dom-helpers';
 
 
 class Gallary extends React.Component {
@@ -74,9 +75,10 @@ class Gallary extends React.Component {
 
     render() {
         return (
-            <div className="showgrid">
-                {this.state.resturants.map((reseturants, index) => {
-                    return (<div className="row" key={'row' + index}>
+            <div>
+                {/* {this.state.resturants.map((reseturants, index) => {
+                    return (<div className="row"
+                     key={'row' + index}>
                         {reseturants.map((resturant, index) => {
                             return (<div className="column shadow-sm bg-white rounded" key={'column' + index} >
                                 <div className="buttonPlace">
@@ -92,7 +94,27 @@ class Gallary extends React.Component {
                         })
                         }
                     </div>)
-                })}
+                })} */}
+
+                <div className="row p-0 m-0">
+                    {
+                        this.state.mainResturantList.map((resturant, index) => {
+                            return (
+                                <div className="p-2" style={{width:'33.3333%'}} key={'column' + index} >
+                                    <div className="buttonPlace bg-white rounded shadow-sm overflow-hidden">
+                                        <div className="imgPlace">
+                                            <img style={{ width: '100%' }} src={burger} alt='pic' />
+                                            <label>{resturant.avg.toFixed(1)}</label>
+                                        </div>
+                                        <li style={{ paddingLeft: '10px', listStyleType: 'none' }}><b>{resturant.name}</b></li>
+                                        <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{resturant.address}</li>
+                                        <Button className='btn' onClick={this.onSubmit} id={resturant.id}></Button> 
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+                </div> 
             </div>
         )
     }

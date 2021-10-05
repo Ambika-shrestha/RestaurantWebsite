@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import images from '../../img/images.jpg';
 import './detail.css';
 import StarRatings from 'react-star-ratings';
-import { FaLocationArrow, FaPhoneAlt, FaStar, FaPlusCircle } from 'react-icons/fa';
+import { FaLocationArrow, FaPhoneAlt, FaStar, FaPlusCircle, FaSort } from 'react-icons/fa';
 import { Col, Row, Button } from 'react-bootstrap';
 
 
@@ -73,17 +73,28 @@ class Details extends React.Component {
 
     render() {
         return (
-            <div>
-                <div>
-                    <img style={{ width: '100%', height: '200px', paddingTop: '15px' }} src={images} alt='pic' />
+            <div style={{ height: '100%', display:'table', padding:'10px'}}>
+                <div style={{ height: '64%',display: 'table-row'}}>
+                    <img style={{ width: '407px'}} src={images} alt='pic' />
                     <li style={{ listStyleType: 'none', color: 'orange', fontSize: '1.5rem' }}><b>{this.state.resturant.name}</b></li>
                     <li style={{ listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' className="mr-2" />{this.state.resturant.address}</li>
                     <li style={{ listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' className="mr-2" />{this.state.resturant.contact}</li>
                     <li style={{ listStyleType: 'none', color: 'gray' }}><FaStar color='orange' className="mr-2" />{this.state.resturant.avg.toFixed(1)}</li>
-                    <h4 className='pt-2'>Reviews
-                        <Button onClick={this.popUp} data-toggle="modal" ><FaPlusCircle /></Button>
-                    </h4>
-                    <div className="overflow-auto" style={{ height: '200px' }} >
+                    <div>
+                        <Row className="mt-1 mr-0 ml-0">
+                            <Col className="p-0 m-auto col-md-3" style={{width:'100px'}}>
+                                <h4 className='h-100 m-auto'>Reviews</h4>
+                            </Col>
+                            <Col className="m-auto p-0">
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px' }} ><FaSort /></Button>
+                            </Col>
+                            <Col className="p-0 m-auto d-flex justify-content-end">
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px' }} onClick={this.popUp} ><FaPlusCircle /></Button>
+                            </Col>
+                        </Row>
+                    </div>
+                </div>
+                <div className="overflow-auto" style={{ height: '200px'}} >
                         {this.state.reviews.map((review, index) => {
                             return (<div className='border-bottom' key={'review' + index}>
                                 <li style={{ listStyleType: 'none' }}><b>{review.user.first_name + ' ' + review.user.last_name}</b></li>
@@ -103,10 +114,7 @@ class Details extends React.Component {
                                     </Row></li>
                                 <li style={{ listStyleType: 'none' }}><label>{review.comment}</label></li>
                             </div>)
-                        }
-                        )}
-
-                    </div>
+                        })}
                 </div>
             </div>
         )

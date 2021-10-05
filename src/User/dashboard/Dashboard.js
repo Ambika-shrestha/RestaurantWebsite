@@ -40,18 +40,18 @@ class Dashboard extends React.Component {
 
     render() {
         return (
-            <div className={`vh-100 h-100`} style={{ backgroundColor: 'rgba(247,247,247,1)', position: 'relative' }}>
+            <div className={`vh-100 h-100`} style={{ backgroundColor: 'rgba(247,247,247,1)', minWidth:'952px', position: 'relative' }}>
                 <div style={{ height: '50px', backgroundColor: 'white', marginBottom: '5px' }}>
                     <h4 style={{ textAlign: 'center', color: 'orange', paddingTop: '10px' }}>Resturant Review</h4>
                 </div>
-                <Row>
-                    <Col md={8} style={{ backgroundColor: 'rgba(247,247,247,1)', height: '90vh', overflow: 'auto' }}>
+                <div className="row m-0">
+                    <div className="col-md-8" style={{ backgroundColor: 'rgba(247,247,247,1)', height: '90vh', overflow: 'auto' }}>
                         <Gallary select={this.gridSelect} />
-                    </Col>
-                    {this.state.details !== null && <Col md={4} style={{ backgroundColor: 'white' }}>
+                    </div>
+                    {this.state.details !== null && <div className="col-md-4 p-0" style={{ backgroundColor: 'white', height: '90vh'}}>
                         <Details resturant={this.state.details} addReview={this.addReview} />
-                    </Col>}
-                </Row>
+                    </div>}
+                </div>
                 {this.state.modalOpened && <ReviewPop toggle={this.togglePop} resturant={this.state.details} />}
             </div>
         )

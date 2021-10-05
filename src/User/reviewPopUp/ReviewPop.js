@@ -72,14 +72,14 @@ class ReviewPop extends React.Component {
                             />
                         </Col>
                     </Row>
-                    <Form className="d-flex justify-content-center w-100 mb-2">
+                    <Form className="d-flex justify-content-center w-100 mb-4 mt-4">
                         <Form.Group className="w-75" controlId="exampleForm.ControlTextarea1">
                             <h5><b>Comments</b></h5>
                             <Form.Control className="w-100" as="textarea" rows={3} />
                         </Form.Group>
                     </Form>
                     <div>
-                        <Row>
+                        <Row className="mb-4">
                             <Col className='d-flex justify-content-end'>
                                 <h5 className='mt-1'><b>Date of Visit</b></h5>
                             </Col>

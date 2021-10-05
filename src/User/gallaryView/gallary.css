@@ -1,4 +1,4 @@
-@media screen and (min-device-width:698px) {
+/* @media screen and (min-device-width:698px) {
     .showgrid {
       width: 100%;
       margin-top: 20px;
@@ -7,7 +7,7 @@
 
 .row {
     width: 100%;
-    margin: 0px 0px 20px 0px;
+    margin: 0px 0px 0px 0px;
 }
 
 @media (min-device-width: 698px) {
@@ -18,15 +18,16 @@
         float: left;
     }
 }
-
-.column {
-    width: 30%;
+*/
+/* .column {
+    width: 500px;
     height: 230px;
     margin-left: 20px;
+    margin-Bottom: 20px;
     background-color: white;
     border-radius: 5px !important;
     overflow: hidden;
-}
+}  */
 
 .imgPlace{
     position:relative;
@@ -49,13 +50,13 @@
 
 .buttonPlace{
     position:relative;
+    background-color: red;
 }
 .buttonPlace Button{
     position:absolute;
     z-index: 1;
     background-color: transparent !important;;
-    height: 230px;
-    width: 100%;
+    height: 300px;
     text-align: center;
     top:0;
     bottom: 0;

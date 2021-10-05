@@ -2,3 +2,15 @@ html, body{
     height: 100%;
     background-color: rgba(247,247,247,1) !important;
 }
+
+.thirty {
+    width: 30%;
+    display: block;
+    float: right;
+  }
+  
+  .seventy {
+    width: 70%;
+    display: block;
+    float: left;
+  }
