@@ -40,14 +40,14 @@ class Main extends React.Component {
                     <Col>
                         <Row className={`w-100`}>
                             <Col className='d-flex justify-content-end pt-4 pb-1'>
-                                <Button className={`mr-4 w-25`} 
-                                style={{ backgroundColor: isLoginClick ? 'black' : 'transparent', color: isLoginClick ? 'white' : 'black', borderRadius: '30px' }}
-                                type="submit" variant="contained" onClick={this.loginButton}>
+                                <Button className={`mr-4 w-25`}
+                                    style={{ backgroundColor: isLoginClick ? 'black' : 'transparent', color: isLoginClick ? 'white' : 'black', borderRadius: '30px' }}
+                                    type="submit" variant="contained" onClick={this.loginButton}>
                                     Log in
                                 </Button>
-                                <Button className={`mr-4 w-25`} 
-                                style={{ backgroundColor: isLoginClick ? 'transparent' : 'black', color: isLoginClick ? 'black' : 'white', borderRadius: '30px' }} 
-                                type="submit" variant="contained" onClick={this.signupButton}>
+                                <Button className={`mr-4 w-25`}
+                                    style={{ backgroundColor: isLoginClick ? 'transparent' : 'black', color: isLoginClick ? 'black' : 'white', borderRadius: '30px' }}
+                                    type="submit" variant="contained" onClick={this.signupButton}>
                                     Sign up
                                 </Button>
                             </Col>

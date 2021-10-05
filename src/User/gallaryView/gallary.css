@@ -1,31 +1,31 @@
 @media screen and (min-device-width:698px) {
-  .showgrid {
-    width: 100%;
-    margin-top: 20px;
-  }
+    .showgrid {
+      width: 100%;
+      margin-top: 20px;
+    }
 }
 
 .row {
-  width: 100%;
-  margin: 0px 0px 20px 0px;
+    width: 100%;
+    margin: 0px 0px 20px 0px;
 }
 
 @media (min-device-width: 698px) {
-  .column {
-    width: 30%;
-    height: 230px;
-    display: inline;
-    float: left;
-  }
+    .column {
+        width: 30%;
+        height: 230px;
+        display: inline;
+        float: left;
+    }
 }
 
 .column {
-  width: 30%;
-  height: 230px;
-  margin-left: 20px;
-  background-color: white;
-  border-radius: 5px !important;
-  overflow: hidden;
+    width: 30%;
+    height: 230px;
+    margin-left: 20px;
+    background-color: white;
+    border-radius: 5px !important;
+    overflow: hidden;
 }
 
 .imgPlace{
@@ -48,25 +48,25 @@
 }
 
 .buttonPlace{
-  position:relative;
+    position:relative;
 }
 .buttonPlace Button{
-  position:absolute;
-  z-index: 1;
-  background-color: transparent !important;;
-  height: 230px;
-  width: 100%;
-  text-align: center;
-  top:0;
-  bottom: 0;
-  padding: 0px;
-  border: none;
-  -webkit-tap-highlight-color: transparent;
+    position:absolute;
+    z-index: 1;
+    background-color: transparent !important;;
+    height: 230px;
+    width: 100%;
+    text-align: center;
+    top:0;
+    bottom: 0;
+    padding: 0px;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
 }
 .buttonPlace img{
-  position:relative;
+    position:relative;
 }
 
 .btn:hover:active:focus{
-  background: rgba(0, 0, 0, 0.4) !important;
+    background: rgba(0, 0, 0, 0.4) !important;
 }

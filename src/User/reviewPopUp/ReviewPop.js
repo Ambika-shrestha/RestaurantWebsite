@@ -1,9 +1,9 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import './reviewpop.css';
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import StarRatings from 'react-star-ratings';
-import {DatePicker} from 'react-datepicker';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -16,7 +16,7 @@ class ReviewPop extends React.Component {
             reviews: [],
             comment: '',
             dateOfVisit: null,
-            startDate:new Date(),
+            startDate: new Date(),
             rating: 0
         }
     }
@@ -37,6 +37,7 @@ class ReviewPop extends React.Component {
     }
 
     didSelectDate = (selectedDate) => {
+        console.log(selectedDate)
         this.setState({
             dateOfVisit: selectedDate
         })
@@ -106,7 +107,7 @@ class ReviewPop extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: 'User already exist'
+                    error: error
                 })
             })
     }
@@ -115,10 +116,10 @@ class ReviewPop extends React.Component {
     render() {
         return (
             <div className="popup  d-flex justify-content-center align-items-center rounded overflow-hidden">
-                <div className='bg-white w-25 h-75 '>
+                <div className='bg-white w-75 h-75 '>
                     <h3 className='mt-3 text-center'>{this.state.resturant.name}</h3>
                     <h6 className='mb-4'>{this.state.resturant.address}</h6>
-                    <h5>Reviews</h5>
+                    <h5><b>Reviews</b></h5>
                     <Row className='row justify-content-center'>
                         <Col md={3.5} >
                             <StarRatings
@@ -129,32 +130,32 @@ class ReviewPop extends React.Component {
                                 name='rating'
                                 starDimension='27px'
                                 starSpacing="2px"
-                                name='rating'
                             />
                         </Col>
                     </Row>
-                    <Form>
-                        <Form.Group className="mb-3 p-3" controlId="exampleForm.ControlTextarea1">
-                            <Form.Label>Comments</Form.Label>
-                            <Form.Control as="textarea" rows={3} />
+                    <Form className="d-flex justify-content-center w-100 mb-2">
+                        <Form.Group className="w-75" controlId="exampleForm.ControlTextarea1">
+                            <h5><b>Comments</b></h5>
+                            <Form.Control className="w-100" as="textarea" rows={3} />
                         </Form.Group>
                     </Form>
                     <div>
                         <Row>
-                            <Col>
-                                <h5>Date of Visit</h5>
+                            <Col className='d-flex justify-content-end'>
+                                <h5 className='mt-1'><b>Date of Visit</b></h5>
                             </Col>
-                            <Col>
+                            <Col className='d-flex justify-content-start'>
                                 <DatePicker
+                                    className='d-flex justify-content-start'
                                     selected={this.state.startDate}
                                     onChange={this.didSelectDate}
+
                                 />
                             </Col>
                         </Row>
                         <div>
-                            <Button type="submit" className='mr-3' onClick={this.addReviewbtn} >Submit</Button>
-                             
-                            <Button className='bg-danger' onClick={this.handleClick}>Close</Button>
+                            <Button type="submit" className='mr-3 w-25' onClick={this.addReviewbtn} >Submit</Button>
+                            <Button className='bg-danger w-25' onClick={this.handleClick}>Close</Button>
                         </div>
                     </div>
                 </div>
@@ -163,4 +164,4 @@ class ReviewPop extends React.Component {
     }
 }
 
-export default withRouter(ReviewPop);
+export default ReviewPop;

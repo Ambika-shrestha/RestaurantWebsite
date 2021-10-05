@@ -164,9 +164,9 @@ class Signup extends React.Component {
                 this.setState({
                     error: ''
                 })
-                if(data['user']['is_superuser']=== false && data['user']['is_staff']=== false){
+                if (data['user']['is_superuser'] === false && data['user']['is_staff'] === false) {
                     this.props.history.push("/dashboard")
-                 }
+                }
             })
             .catch(error => {
                 this.setState({
@@ -182,7 +182,7 @@ class Signup extends React.Component {
 
         this.setState({
             [name]: value,
-            [name + 'Error']: '' 
+            [name + 'Error']: ''
         });
     }
 

@@ -12,20 +12,20 @@ class Gallary extends React.Component {
         this.state = {
             resturants: [],
             mainResturantList: [],
-            error:''
+            error: ''
         }
     }
 
     componentDidMount() {
         this.onSubmit = this.onSubmit.bind(this);
-        this.gallaryApi()   
+        this.gallaryApi()
     }
 
     dimensional = (data) => {
         let temparr = []
         for (let i = 0; i < data.length; i += 3) {
             let subarr = []
-            for (let j = i; j < i + 3 && j<data.length; j++) {
+            for (let j = i; j < i + 3 && j < data.length; j++) {
                 subarr.push(data[j])
             }
             temparr.push(subarr)
@@ -35,12 +35,12 @@ class Gallary extends React.Component {
 
     onSubmit = (event) => {
         //event.stopPropogation()
-       const target = event.target;
-       const resturant = this.state.mainResturantList.filter(dict => parseInt(dict.id) === parseInt( target.id))
-       if(resturant.length > 0){
-        this.props.select(resturant[0])
-       }
-       event.preventDefault()
+        const target = event.target;
+        const resturant = this.state.mainResturantList.filter(dict => parseInt(dict.id) === parseInt(target.id))
+        if (resturant.length > 0) {
+            this.props.select(resturant[0])
+        }
+        event.preventDefault()
     }
 
     gallaryApi = () => {
@@ -74,19 +74,19 @@ class Gallary extends React.Component {
 
     render() {
         return (
-            <div className ="showgrid">
+            <div className="showgrid">
                 {this.state.resturants.map((reseturants, index) => {
-                    return (<div className="row" key={'row'+ index}>
+                    return (<div className="row" key={'row' + index}>
                         {reseturants.map((resturant, index) => {
-                            return (<div className="column shadow-sm bg-white rounded"  key={'column'+ index} >
+                            return (<div className="column shadow-sm bg-white rounded" key={'column' + index} >
                                 <div className="buttonPlace">
-                                <div className="imgPlace">
-                                    <img style={{ width: '100%', height: '160px' }} src={burger} alt='pic'/>
-                                    <label>{resturant.avg.toFixed(1)}</label>
-                                </div>
-                                <li style={{ paddingLeft: '10px', listStyleType: 'none', marginTop: '5px', marginBottom: '3px' }}><b>{resturant.name}</b></li>
-                                <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{resturant.address}</li>
-                                <Button className='btn' onClick={this.onSubmit} id={resturant.id}></Button>
+                                    <div className="imgPlace">
+                                        <img style={{ width: '100%', height: '160px' }} src={burger} alt='pic' />
+                                        <label>{resturant.avg.toFixed(1)}</label>
+                                    </div>
+                                    <li style={{ paddingLeft: '10px', listStyleType: 'none', marginTop: '5px', marginBottom: '3px' }}><b>{resturant.name}</b></li>
+                                    <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{resturant.address}</li>
+                                    <Button className='btn' onClick={this.onSubmit} id={resturant.id}></Button>
                                 </div>
                             </div>)
                         })
