@@ -16,8 +16,7 @@ class ReviewPop extends React.Component {
             reviews: [],
             comment: '',
             dateOfVisit: new Date(),
-            rating: 0,
-            comment: '',
+            rating: 0
         }
 
         this.submitButtonClick = this.submitButtonClick.bind(this);
@@ -63,7 +62,7 @@ class ReviewPop extends React.Component {
                 rating: this.state.rating,
                 date: (this.state.dateOfVisit).getTime(),
                 comment: this.state.comment,
-                resturant: this.state.resturant.id
+                restaurant: this.state.resturant.id
             })
         };
         fetch('https://andesrestaurant.herokuapp.com/api/reviews', requestOptions)
