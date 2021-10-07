@@ -161,6 +161,7 @@ class Signup extends React.Component {
             })
             .then(data => {
                 localStorage.setItem('token', data['key']);
+                localStorage.setItem('user', data['user']['id']);
                 this.setState({
                     error: ''
                 })

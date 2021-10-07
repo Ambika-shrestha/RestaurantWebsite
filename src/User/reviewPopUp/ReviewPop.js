@@ -16,7 +16,8 @@ class ReviewPop extends React.Component {
             reviews: [],
             comment: '',
             dateOfVisit: new Date(),
-            rating: 0
+            rating: 0,
+            comment: '',
         }
 
         this.submitButtonClick = this.submitButtonClick.bind(this);
@@ -28,6 +29,7 @@ class ReviewPop extends React.Component {
                 resturant: this.props.resturant,
             })
             this.getreviewsApi();
+            this.addReviewApi();
         }
     }
 
@@ -40,18 +42,65 @@ class ReviewPop extends React.Component {
     didSelectDate = (selectedDate) => {
         console.log(selectedDate)
         this.setState({
-            dateOfVisit: selectedDate
+            dateOfVisit: selectedDate,
         })
     }
 
-    submitButtonClick = (event) => {
-        console.log("Submit Button Click");
+    submitButtonClick = () => {
+        this.addReviewApi();
     }
 
     handleClick = () => {
         this.props.toggle();
     };
 
+    addReviewApi = () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' , 'Authorization': 'token ' + localStorage.getItem('token')},
+            body: JSON.stringify({
+                user: parseInt(localStorage.getItem('user')),
+                rating: this.state.rating,
+                date: (this.state.dateOfVisit).getTime(),
+                comment: this.state.comment,
+                resturant: this.state.resturant.id
+            })
+        };
+        fetch('https://andesrestaurant.herokuapp.com/api/reviews', requestOptions)
+            .then(response => {
+                console.log('response', response, requestOptions)
+                if (!response.ok) {
+                    debugger
+                    throw new Error(response.status);
+                }
+                else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                console.log('data review', data)
+                this.setState({
+                    error: ''
+                })
+
+            })
+            .catch(error => {
+                this.setState({
+                    error: 'Unauthorized user !'
+                })
+            })
+    }
+
+    handleChange = (event) => {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value,
+            [name + 'Error']: ''
+        });
+    }
     render() {
         return (
             <div className="popup  d-flex justify-content-center align-items-center rounded overflow-hidden">
@@ -69,13 +118,16 @@ class ReviewPop extends React.Component {
                                 name='rating'
                                 starDimension='27px'
                                 starSpacing="2px"
+                                value={this.state.rating}
                             />
                         </Col>
                     </Row>
                     <Form className="d-flex justify-content-center w-100 mb-4 mt-4">
                         <Form.Group className="w-75" controlId="exampleForm.ControlTextarea1">
                             <h5><b>Comments</b></h5>
-                            <Form.Control className="w-100" as="textarea" rows={3} />
+                            <Form.Control className="w-100" as="textarea" rows={3}  value={this.state.comment}
+                                    name= 'comment'
+                                    onChange={this.handleChange} />
                         </Form.Group>
                     </Form>
                     <div>
