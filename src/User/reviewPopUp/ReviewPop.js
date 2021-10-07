@@ -103,7 +103,7 @@ class ReviewPop extends React.Component {
     render() {
         return (
             <div className="popup  d-flex justify-content-center align-items-center rounded overflow-hidden">
-                <div className='bg-white w-75 h-75 '>
+                <div className='bg-white m-3 p-3'>
                     <h3 className='mt-3 text-center'>{this.state.resturant.name}</h3>
                     <h6 className='mb-4'>{this.state.resturant.address}</h6>
                     <h5><b>Reviews</b></h5>
@@ -121,22 +121,20 @@ class ReviewPop extends React.Component {
                             />
                         </Col>
                     </Row>
-                    <Form className="d-flex justify-content-center w-100 mb-4 mt-4">
-                        <Form.Group className="w-75" controlId="exampleForm.ControlTextarea1">
+                    <Form className="d-flex justify-content-center mb-4 mt-4">
+                        <Form.Group style={{width:'300px'}} controlId="exampleForm.ControlTextarea1">
                             <h5><b>Comments</b></h5>
                             <Form.Control className="w-100" as="textarea" rows={3}  value={this.state.comment}
                                     name= 'comment'
                                     onChange={this.handleChange} />
                         </Form.Group>
                     </Form>
-                    <div>
-                        <Row className="mb-4">
-                            <Col className='d-flex justify-content-end'>
-                                <h5 className='mt-1'><b>Date of Visit</b></h5>
-                            </Col>
-                            <Col className='d-flex justify-content-start'>
+                    <div className='d-flex justify-content-center align-items-center'>
+                        <Row className="mb-4" style={{width:'330px'}}>
+                            <Col className='d-flex justify-content-center align-items-center'>
+                                <label className='mt-1' style={{width:'200px'}}><b>Date of Visit</b></label>
                                 <DatePicker
-                                    className='d-flex justify-content-start'
+                                    className='d-flex justify-content-center align-items-center w-100'
                                     selected={this.state.dateOfVisit}
                                     maxDate={new Date()}
                                     onChange={date => this.didSelectDate(date)}
@@ -144,10 +142,11 @@ class ReviewPop extends React.Component {
                                 />
                             </Col>
                         </Row>
-                        <div>
-                            <Button type="submit" className='mx-3 w-25' onClick={this.submitButtonClick} >Submit</Button>
-                            <Button className='bg-danger w-25' onClick={this.handleClick}>Close</Button>
-                        </div>
+                        
+                    </div>
+                    <div className='mb-2'>
+                            <Button type="submit" className='mx-3' onClick={this.submitButtonClick} >Submit</Button>
+                            <Button className='bg-danger' onClick={this.handleClick}>Close</Button>
                     </div>
                 </div>
             </div>

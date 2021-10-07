@@ -39,19 +39,19 @@ class Main extends React.Component {
                         <Row className="vh-100" style={{margin:'0px'}}>
                             <Row style={{margin:'0px', height:'80px'}}>
                                 <Col className='d-flex w-100 justify-content-end pt-4 pb-1' style={{margin:'0px'}}>
-                                    <Button className="mr-4 w-25"
+                                    <Button className="me-4 h-75"
                                         style={{ backgroundColor: isLoginClick ? 'black' : 'transparent', color: isLoginClick ? 'white' : 'black', borderRadius: '30px'}}
                                         type="submit" variant="contained" onClick={this.loginButton}>
                                         Log in
                                     </Button>
-                                    <Button className="mr-4 w-25"
+                                    <Button className="me-4 h-75"
                                         style={{ backgroundColor: isLoginClick ? 'transparent' : 'black', color: isLoginClick ? 'black' : 'white', borderRadius: '30px'}}
                                         type="submit" variant="contained" onClick={this.signupButton}>
                                         Sign up
                                     </Button>
                                 </Col>
                             </Row>
-                            <Row style={{paddingLeft:'100px',paddingRight:'100px', margin:'0px', height:'calc(100% - 80px)'}}>
+                            <Row style={{margin:'0px', height:'calc(100% - 80px)'}}>
                                   {isLoginClick ? <Login /> : <Signup />}
                             </Row>
                         </Row>

@@ -60,7 +60,7 @@ class Gallary extends React.Component {
     render() {
         return (
             <div>
-                <div className="row p-0 m-0 row-cols-3">
+                <div className="row p-0 m-0 row-cols-sm-1 row-cols-md-2 row-cols-lg-3">
                     {
                         this.state.mainResturantList.map((resturant, index) => {
                             return (

@@ -191,12 +191,12 @@ class Signup extends React.Component {
 
     render() {
         return (
-            <div className={`formCard mx-auto ml-10 mt-5`}>
+            <div className={`formCard mx-auto mt-3 mt-xs-0`}>
                 <Form>
                     {this.state.error !== '' ? <h3 className="text-center" style={{ color: 'red' }}>{this.state.error}</h3> : undefined}
                     <h4 className="text-center">Sign up</h4>
                     <Row>
-                        <Form.Group as={Col} className="mb-3">
+                        <Form.Group as={Col} className="mb-2">
                             <InputGroup className="mb-2">
 
                                 <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
@@ -211,7 +211,7 @@ class Signup extends React.Component {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Group as={Col} className="mb-3">
+                        <Form.Group as={Col} className="mb-2">
                             <InputGroup className="mb-2">
 
                                 <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
@@ -226,7 +226,7 @@ class Signup extends React.Component {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Group as={Col} className="mb-3">
+                        <Form.Group as={Col} className="mb-2">
                             <InputGroup className="mb-2">
 
                                 <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
@@ -241,7 +241,7 @@ class Signup extends React.Component {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Group as={Col} className="mb-3">
+                        <Form.Group as={Col} className="mb-2">
                             <InputGroup className="mb-2">
 
                                 <InputGroup.Text><AiOutlineKey /></InputGroup.Text>
@@ -256,7 +256,7 @@ class Signup extends React.Component {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Group as={Col} className="mb-3">
+                        <Form.Group as={Col} className="mb-2">
                             <InputGroup className="mb-2">
                                 <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
                                 <Form.Control type="password" name="password" className='input' placeholder="Password" required
@@ -269,7 +269,7 @@ class Signup extends React.Component {
                         </Form.Group>
                     </Row>
                     <Row>
-                        <Form.Group as={Col} className="mb-3">
+                        <Form.Group as={Col} className="mb-2">
                             <InputGroup className="mb-2">
 
                                 <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
@@ -283,7 +283,7 @@ class Signup extends React.Component {
                             </InputGroup>
                         </Form.Group>
                     </Row>
-                    <Row className='d-flex justify-content-center h-10'>
+                    <Row className='d-flex justify-content-center'>
                         {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> : <Button className={`w-50 gradient`} onClick={this.signupButton} type="submit">
                             Sign up
                         </Button>}

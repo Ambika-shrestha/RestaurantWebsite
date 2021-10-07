@@ -8,3 +8,14 @@
     text-align: center;
 }
 
+@media (max-width: 540px) {
+    .popup{
+        top:0;
+        position:absolute;
+        z-index: 1;
+        background-color:rgba(0,0,0,0.5);
+        height: 200vh;
+        width: 100%;
+        text-align: center;
+    }    
+}
