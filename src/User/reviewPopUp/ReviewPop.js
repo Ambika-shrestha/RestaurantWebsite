@@ -61,9 +61,9 @@ class ReviewPop extends React.Component {
             body: JSON.stringify({
                 user: parseInt(localStorage.getItem('user')),
                 rating: this.state.rating,
-                date: (this.state.dateOfVisit).getTime(),
+                date: (this.state.dateOfVisit).getTime() / 1000,
                 comment: this.state.comment,
-                resturant: this.state.resturant.id
+                restaurant: this.state.resturant.id
             })
         };
         fetch('https://andesrestaurant.herokuapp.com/api/reviews', requestOptions)
@@ -82,7 +82,7 @@ class ReviewPop extends React.Component {
                 this.setState({
                     error: ''
                 })
-
+                window.location.reload(true);
             })
             .catch(error => {
                 this.setState({
@@ -141,12 +141,12 @@ class ReviewPop extends React.Component {
                                     selected={this.state.dateOfVisit}
                                     maxDate={new Date()}
                                     onChange={date => this.didSelectDate(date)}
-                                    dateFormat="dd/MM/yyyy"
+                                    dateFormat="dd/MMM/yyyy"
                                 />
                             </Col>
                         </Row>
                         <div>
-                            <Button type="submit" className='mr-3 w-25' onClick={this.submitButtonClick} >Submit</Button>
+                            <Button type="submit" className='mx-3 w-25' onClick={this.submitButtonClick} >Submit</Button>
                             <Button className='bg-danger w-25' onClick={this.handleClick}>Close</Button>
                         </div>
                     </div>

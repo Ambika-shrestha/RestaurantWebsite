@@ -15,10 +15,12 @@ class Details extends React.Component {
         this.state = {
             resturant: this.props.resturant,
             reviews: [],
-            disabled: true
+            disabled: true,
+            isSorted: false
         }
         this.dateConversion = this.dateConversion.bind(this)
         this.popUp = this.popUp.bind(this)
+        this.sortComment =this.sortComment.bind(this)
     }
 
     componentDidMount() {
@@ -42,6 +44,29 @@ class Details extends React.Component {
 
     popUp = (event) => {
         this.props.addReview(this.state.resturant)
+    }
+
+    sortComment = (event) => {
+        if(this.state.isSorted == false){
+            const sortedReviews= this.state.reviews.sort(function(a, b){
+                return a.rating - b.rating
+            })
+             this.setState({
+                 reviews: sortedReviews,
+                 isSorted: true
+             })
+        }
+        else{
+            const sortedReviews= this.state.reviews.sort(function(a, b){
+                return b.rating - a.rating
+            })
+             this.setState({
+                 reviews: sortedReviews,
+                 isSorted: false
+             })
+        }
+      
+
     }
 
     reviewsApi = () => {
@@ -86,7 +111,7 @@ class Details extends React.Component {
                                 <h4 className='h-100 m-auto'>Reviews</h4>
                             </Col>
                             <Col className="m-auto p-0">
-                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px' }} ><FaSort /></Button>
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px' }} onClick={this.sortComment}><FaSort /></Button>
                             </Col>
                             <Col className="p-0 m-auto d-flex justify-content-end">
                                 <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px' }} onClick={this.popUp} ><FaPlusCircle /></Button>
