@@ -20,7 +20,7 @@ class Details extends React.Component {
         }
         this.dateConversion = this.dateConversion.bind(this)
         this.popUp = this.popUp.bind(this)
-        this.sortComment =this.sortComment.bind(this)
+        this.sortComment = this.sortComment.bind(this)
     }
 
     componentDidMount() {
@@ -47,26 +47,18 @@ class Details extends React.Component {
     }
 
     sortComment = (event) => {
-        if(this.state.isSorted == false){
-            const sortedReviews= this.state.reviews.sort(function(a, b){
-                return a.rating - b.rating
-            })
-             this.setState({
-                 reviews: sortedReviews,
-                 isSorted: true
-             })
-        }
-        else{
-            const sortedReviews= this.state.reviews.sort(function(a, b){
-                return b.rating - a.rating
-            })
-             this.setState({
-                 reviews: sortedReviews,
-                 isSorted: false
-             })
-        }
-      
 
+        let sortedReviews = this.state.reviews.sort((a, b) => {
+            if (this.state.isSorted === false) {
+                return a.rating - b.rating
+            } else {
+                return b.rating - a.rating
+            }
+        })
+        this.setState({
+            reviews: sortedReviews,
+            isSorted: !this.state.isSorted
+        })
     }
 
     reviewsApi = () => {
@@ -98,53 +90,55 @@ class Details extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '100%', padding:'10px'}}>
-                <div>
-                    <img style={{ width: '100%'}} src={images} alt='pic' />
+            <div style={{ height: '100%', backgroundColor:'rgba(247,247,247,1)' }}>
+                <div className="p-2">
+                    <img style={{ width: '100%' }} src={images} alt='pic' />
                     <li style={{ listStyleType: 'none', color: 'orange', fontSize: '1.5rem' }}><b>{this.state.resturant.name}</b></li>
-                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' style={{marginLeft:'0px', marginRight:'10px'}} />{this.state.resturant.address}</li>
-                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' style={{marginLeft:'0px', marginRight:'10px'}} />{this.state.resturant.contact}</li>
-                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaStar color='orange' style={{marginLeft:'0px', marginRight:'10px'}} />{this.state.resturant.avg.toFixed(1)}</li>
+                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' style={{ marginLeft: '0px', marginRight: '10px' }} />{this.state.resturant.address}</li>
+                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' style={{ marginLeft: '0px', marginRight: '10px' }} />{this.state.resturant.contact}</li>
+                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaStar color='orange' style={{ marginLeft: '0px', marginRight: '10px' }} />{this.state.resturant.avg.toFixed(1)}</li>
                     <div>
-                        <Row className="row-col-3" style={{marginLeft:'0px', marginRight:'0px'}}>
-                            <Col className="p-0 m-auto col-md-3" style={{width:'100px'}}>
+                        <Row className="row-col-3" style={{ marginLeft: '0px', marginRight: '0px' }}>
+                            <Col className="p-0 m-auto col-md-3" style={{ width: '100px' }}>
                                 <h4 className='h-100 m-auto'>Reviews</h4>
                             </Col>
                             <Col className="m-auto p-0">
-                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px' }} onClick={this.sortComment}><FaSort /></Button>
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.sortComment}><FaSort color="black" /></Button>
                             </Col>
                             <Col className="p-0 m-auto d-flex justify-content-end">
-                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px' }} onClick={this.popUp} ><FaPlusCircle /></Button>
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.popUp} ><FaPlusCircle color="black" /></Button>
                             </Col>
                         </Row>
                     </div>
                 </div>
-                <div className="overflow-auto" style={{ height: '40%'}} >
-                        {this.state.reviews.map((review, index) => {
-                            return (<div className='border-bottom' key={'review' + index}>
-                                <li style={{ listStyleType: 'none' }}><b>{review.user.first_name + ' ' + review.user.last_name}</b></li>
-                                <li style={{ listStyleType: 'none' }}>
-                                    <Row className="row-cols-2" style={{ margin: '0px' }}>
-                                        <Col className="col-lg-4" style={{paddingLeft:'0px', paddingRight:'0px'}}>
-                                            <StarRatings
-                                                rating={review.rating}
-                                                starRatedColor="orange"
-                                                numberOfStars={5}
-                                                name='rating'
-                                                starDimension='20px'
-                                                starSpacing="2px"
-                                            />
-                                        </Col>
-                                        <Col className="col-md-auto" style={{paddingLeft:'0px', paddingRight:'0px'}}> 
-                                            <h6 style={{ marginTop: '7px' }}> 
-                                                {this.dateConversion(review.date)} 
-                                            </h6>
-                                        </Col>
-                                    </Row>
-                                </li>
-                                <li style={{ listStyleType: 'none' }}><label>{review.comment}</label></li>
-                            </div>)
-                        })}
+                <div className="overflow-auto" style={{ height: '40%', backgroundColor:'rgba(247,247,247,1)' }} >
+                    {this.state.reviews.map((review, index) => {
+                        return (<div className='p-1 pe-3' key={'review' + index}>
+                            <div className="bg-white rounded shadow-sm overflow-hidden p-2">
+                            <li style={{ listStyleType: 'none' }}><b>{review.user.first_name + ' ' + review.user.last_name}</b></li>
+                            <li style={{ listStyleType: 'none' }}>
+                                <Row className="row-cols-2" style={{ margin: '0px' }}>
+                                    <Col className="col-lg-4" style={{ paddingLeft: '0px', paddingRight: '0px', }}>
+                                        <StarRatings
+                                            rating={review.rating}
+                                            starRatedColor="orange"
+                                            numberOfStars={5}
+                                            name='rating'
+                                            starDimension='20px'
+                                            starSpacing="2px"
+                                        />
+                                    </Col>
+                                    <Col className="col-md-auto" style={{ paddingLeft: '0px', paddingRight: '0px',  height:'25px' }}>
+                                        <h6 style={{ marginTop: '7px' }}>
+                                            {this.dateConversion(review.date)}
+                                        </h6>
+                                    </Col>
+                                </Row>
+                            </li>
+                            <li style={{ listStyleType: 'none' }}><label>{review.comment}</label></li>
+                            </div>
+                        </div>)
+                    })}
                 </div>
             </div>
         )
