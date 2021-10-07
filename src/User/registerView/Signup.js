@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Form, Col, InputGroup, Spinner, Button, Row } from 'react-bootstrap'
 import { AiOutlineUser, AiOutlineLock, AiOutlineMail, AiOutlineKey } from 'react-icons/ai';
 import './signup.css';
@@ -124,6 +125,7 @@ class Signup extends React.Component {
             event.stopPropagation();
             return
         }
+        debugger;
         if (this.validation()) {
             this.signupApi()
         }
@@ -294,4 +296,4 @@ class Signup extends React.Component {
     }
 }
 
-export default Signup;
+export default withRouter(Signup);
