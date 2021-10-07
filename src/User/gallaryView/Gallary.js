@@ -1,9 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import burger from '../../img/burger.jpg';
-import { Button, Row } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import './gallary.css';
-import { height } from 'dom-helpers';
 
 
 class Gallary extends React.Component {
@@ -61,11 +60,11 @@ class Gallary extends React.Component {
     render() {
         return (
             <div>
-                <div className="row p-0 m-0">
+                <div className="row p-0 m-0 row-cols-3">
                     {
                         this.state.mainResturantList.map((resturant, index) => {
                             return (
-                                <div className="p-2" style={{width:'33.3333%'}} key={'column' + index} >
+                                <div className="p-2" key={'column' + index} >
                                     <div className="buttonPlace bg-white rounded shadow-sm overflow-hidden">
                                         <div className="imgPlace">
                                             <img style={{ width: '100%' }} src={burger} alt='pic' />

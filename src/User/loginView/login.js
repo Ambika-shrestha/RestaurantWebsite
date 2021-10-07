@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { Form, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
+import { Form, Col, InputGroup, Spinner, Button, Row } from 'react-bootstrap'
 import { AiOutlineUser, AiOutlineLock } from 'react-icons/ai';
 import './login.css';
 
@@ -109,12 +109,10 @@ class Login extends React.Component {
                 <Form>
                     {this.state.error !== '' ? <h3 className="text-center" style={{ color: 'red' }}>{this.state.error}</h3> : undefined}
                     <h4 className="text-center">Log in</h4>
-                    <Form.Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
-                                </InputGroup.Prepend>
+                                <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
                                 <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus
                                     value={this.state.username}
                                     onChange={this.handleChange} />
@@ -123,13 +121,11 @@ class Login extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
+                    </Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
-                                </InputGroup.Prepend>
+                                <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
                                 <Form.Control type="password" name="password" className='input' placeholder="Password" required
                                     value={this.state.password}
                                     onChange={this.handleChange} />
@@ -138,12 +134,12 @@ class Login extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row className='d-flex justify-content-center h-10'>
+                    </Row>
+                    <Row className='d-flex justify-content-center h-10'>
                         {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> : <Button className={`w-50 gradient ml-2`} type="submit" onClick={this.loginAction}>
                             Log in
                         </Button>}
-                    </Form.Row>
+                    </Row>
                 </Form>
             </div>
         )

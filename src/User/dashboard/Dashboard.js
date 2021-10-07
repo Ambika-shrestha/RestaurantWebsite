@@ -1,5 +1,4 @@
 import React from 'react'
-import { Row, Col } from 'react-bootstrap'
 import Details from '../detailView/Details';
 import Gallary from '../gallaryView/Gallary';
 import ReviewPop from '../reviewPopUp/ReviewPop';
@@ -40,7 +39,7 @@ class Dashboard extends React.Component {
 
     render() {
         return (
-            <div className={`vh-100 h-100`} style={{ backgroundColor: 'rgba(247,247,247,1)', minWidth:'952px', position: 'relative' }}>
+            <div className={`vh-100 h-100`} style={{ backgroundColor: 'rgba(247,247,247,1)', position: 'relative' }}>
                 <div style={{ height: '50px', backgroundColor: 'white', marginBottom: '5px' }}>
                     <h4 style={{ textAlign: 'center', color: 'orange', paddingTop: '10px' }}>Resturant Review</h4>
                 </div>

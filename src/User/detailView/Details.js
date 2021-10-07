@@ -73,15 +73,15 @@ class Details extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '100%', display:'table', padding:'10px'}}>
-                <div style={{ height: '64%',display: 'table-row'}}>
-                    <img style={{ width: '407px'}} src={images} alt='pic' />
+            <div style={{ height: '100%', padding:'10px'}}>
+                <div>
+                    <img style={{ width: '100%'}} src={images} alt='pic' />
                     <li style={{ listStyleType: 'none', color: 'orange', fontSize: '1.5rem' }}><b>{this.state.resturant.name}</b></li>
-                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' className="mr-2" />{this.state.resturant.address}</li>
-                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' className="mr-2" />{this.state.resturant.contact}</li>
-                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaStar color='orange' className="mr-2" />{this.state.resturant.avg.toFixed(1)}</li>
+                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' style={{marginLeft:'0px', marginRight:'10px'}} />{this.state.resturant.address}</li>
+                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' style={{marginLeft:'0px', marginRight:'10px'}} />{this.state.resturant.contact}</li>
+                    <li style={{ listStyleType: 'none', color: 'gray' }}><FaStar color='orange' style={{marginLeft:'0px', marginRight:'10px'}} />{this.state.resturant.avg.toFixed(1)}</li>
                     <div>
-                        <Row className="mt-1 mr-0 ml-0">
+                        <Row className="row-col-3" style={{marginLeft:'0px', marginRight:'0px'}}>
                             <Col className="p-0 m-auto col-md-3" style={{width:'100px'}}>
                                 <h4 className='h-100 m-auto'>Reviews</h4>
                             </Col>
@@ -94,13 +94,13 @@ class Details extends React.Component {
                         </Row>
                     </div>
                 </div>
-                <div className="overflow-auto" style={{ height: '200px'}} >
+                <div className="overflow-auto" style={{ height: '40%'}} >
                         {this.state.reviews.map((review, index) => {
                             return (<div className='border-bottom' key={'review' + index}>
                                 <li style={{ listStyleType: 'none' }}><b>{review.user.first_name + ' ' + review.user.last_name}</b></li>
                                 <li style={{ listStyleType: 'none' }}>
-                                    <Row style={{ margin: '0px' }}>
-                                        <Col md={3.5} >
+                                    <Row className="row-cols-2" style={{ margin: '0px' }}>
+                                        <Col className="col-lg-4" style={{paddingLeft:'0px', paddingRight:'0px'}}>
                                             <StarRatings
                                                 rating={review.rating}
                                                 starRatedColor="orange"
@@ -110,8 +110,13 @@ class Details extends React.Component {
                                                 starSpacing="2px"
                                             />
                                         </Col>
-                                        <Col md={8} > <h6 style={{ marginTop: '7px' }}> {this.dateConversion(review.date)} </h6></Col>
-                                    </Row></li>
+                                        <Col className="col-md-auto" style={{paddingLeft:'0px', paddingRight:'0px'}}> 
+                                            <h6 style={{ marginTop: '7px' }}> 
+                                                {this.dateConversion(review.date)} 
+                                            </h6>
+                                        </Col>
+                                    </Row>
+                                </li>
                                 <li style={{ listStyleType: 'none' }}><label>{review.comment}</label></li>
                             </div>)
                         })}

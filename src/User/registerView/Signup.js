@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Col, InputGroup, Spinner, Button } from 'react-bootstrap'
+import { Form, Col, InputGroup, Spinner, Button, Row } from 'react-bootstrap'
 import { AiOutlineUser, AiOutlineLock, AiOutlineMail, AiOutlineKey } from 'react-icons/ai';
 import './signup.css';
 
@@ -192,12 +192,12 @@ class Signup extends React.Component {
                 <Form>
                     {this.state.error !== '' ? <h3 className="text-center" style={{ color: 'red' }}>{this.state.error}</h3> : undefined}
                     <h4 className="text-center">Sign up</h4>
-                    <Form.Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
-                                </InputGroup.Prepend>
+
+                                <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
+
                                 <Form.Control type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" className='input' name="email" placeholder="Email" required autoFocus
                                     value={this.state.email}
                                     onChange={this.handleChange} />
@@ -206,13 +206,13 @@ class Signup extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
+                    </Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
-                                </InputGroup.Prepend>
+
+                                <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+
                                 <Form.Control type="text" className='input' name="firstname" placeholder="First name" required autoFocus
                                     value={this.state.firstname}
                                     onChange={this.handleChange} />
@@ -221,13 +221,13 @@ class Signup extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
+                    </Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
-                                </InputGroup.Prepend>
+
+                                <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
+
                                 <Form.Control type="text" className='input' name="lastname" placeholder="Last name" required autoFocus
                                     value={this.state.lastname}
                                     onChange={this.handleChange} />
@@ -236,13 +236,13 @@ class Signup extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
+                    </Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineKey /></InputGroup.Text>
-                                </InputGroup.Prepend>
+
+                                <InputGroup.Text><AiOutlineKey /></InputGroup.Text>
+
                                 <Form.Control type="text" className='input' name="username" placeholder="Username" required autoFocus
                                     value={this.state.username}
                                     onChange={this.handleChange} />
@@ -251,13 +251,11 @@ class Signup extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
+                    </Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
-                                </InputGroup.Prepend>
+                                <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
                                 <Form.Control type="password" name="password" className='input' placeholder="Password" required
                                     value={this.state.password}
                                     onChange={this.handleChange} />
@@ -266,13 +264,13 @@ class Signup extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row>
+                    </Row>
+                    <Row>
                         <Form.Group as={Col} className="mb-3">
                             <InputGroup className="mb-2">
-                                <InputGroup.Prepend>
-                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
-                                </InputGroup.Prepend>
+
+                                <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
+
                                 <Form.Control type="password" name="confirmPassword" className='input' placeholder="Confirm Password" required
                                     value={this.state.confirmPassword}
                                     onChange={this.handleChange} />
@@ -281,12 +279,12 @@ class Signup extends React.Component {
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-                    </Form.Row>
-                    <Form.Row className='d-flex justify-content-center h-10'>
+                    </Row>
+                    <Row className='d-flex justify-content-center h-10'>
                         {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> : <Button className={`w-50 gradient`} onClick={this.signupButton} type="submit">
                             Sign up
                         </Button>}
-                    </Form.Row>
+                    </Row>
                 </Form>
             </div>
 
