@@ -1,3 +1,4 @@
-html, body, #app, #app>div {
-    height: 100%
-}
+.no-gutter {
+    margin-right: 0;
+    margin-left: 0;
+  }

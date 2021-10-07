@@ -104,7 +104,6 @@ class Login extends React.Component {
     }
     render() {
         return (
-
             <div className={`formCard my-auto mx-auto ml-10`}>
                 <Form>
                     {this.state.error !== '' ? <h3 className="text-center" style={{ color: 'red' }}>{this.state.error}</h3> : undefined}

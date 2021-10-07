@@ -32,29 +32,32 @@ class Main extends React.Component {
         const isLoginClick = this.state.isLoginClick;
 
         return (
-            <div className={`mh-100 h-100`}
-                style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover' }}>
-                <Row className={`mr-0 ml-0`} >
-                    <Col>
-                    </Col>
-                    <Col>
-                        <Row className={`w-100`}>
-                            <Col className='d-flex justify-content-end pt-4 pb-1'>
-                                <Button className={`mr-4 w-25`}
-                                    style={{ backgroundColor: isLoginClick ? 'black' : 'transparent', color: isLoginClick ? 'white' : 'black', borderRadius: '30px' }}
-                                    type="submit" variant="contained" onClick={this.loginButton}>
-                                    Log in
-                                </Button>
-                                <Button className={`mr-4 w-25`}
-                                    style={{ backgroundColor: isLoginClick ? 'transparent' : 'black', color: isLoginClick ? 'black' : 'white', borderRadius: '30px' }}
-                                    type="submit" variant="contained" onClick={this.signupButton}>
-                                    Sign up
-                                </Button>
-                            </Col>
+            <div className="vh-100"
+                style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', margin:'0px'}}>
+                 <Row className="row-cols-2 d-flex justify-content-end" style={{margin:'0px'}} >
+                    <Col style={{width:'100vh'}}>
+                        <Row className="vh-100" style={{margin:'0px'}}>
+                            <Row style={{margin:'0px', height:'80px'}}>
+                                <Col className='d-flex w-100 justify-content-end pt-4 pb-1' style={{margin:'0px'}}>
+                                    <Button className="mr-4 w-25"
+                                        style={{ backgroundColor: isLoginClick ? 'black' : 'transparent', color: isLoginClick ? 'white' : 'black', borderRadius: '30px'}}
+                                        type="submit" variant="contained" onClick={this.loginButton}>
+                                        Log in
+                                    </Button>
+                                    <Button className="mr-4 w-25"
+                                        style={{ backgroundColor: isLoginClick ? 'transparent' : 'black', color: isLoginClick ? 'black' : 'white', borderRadius: '30px'}}
+                                        type="submit" variant="contained" onClick={this.signupButton}>
+                                        Sign up
+                                    </Button>
+                                </Col>
+                            </Row>
+                            <Row style={{paddingLeft:'100px',paddingRight:'100px', margin:'0px', height:'calc(100% - 80px)'}}>
+                                  {isLoginClick ? <Login /> : <Signup />}
+                            </Row>
                         </Row>
-                        <Row className={`vh-100`}>
-                            {isLoginClick ? <Login /> : <Signup />}
-                        </Row>
+                        {/* <Row className="d-block bg-dark" style={{margin:'0px', height:'calc(100% - 100px)'}}>
+                            
+                        </Row> */}
                     </Col>
                 </Row>
             </div>
