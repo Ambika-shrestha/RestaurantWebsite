@@ -90,9 +90,9 @@ class Details extends React.Component {
 
     render() {
         return (
-            <div style={{ height: '100%', backgroundColor:'rgba(247,247,247,1)' }}>
-                <div className="p-2">
-                    <img style={{ width: '100%' }} src={images} alt='pic' />
+            <div style={{ height: '95vh', backgroundColor:'rgba(247,247,247,1)', position: 'relative' }}>
+                <div className="p-2" style={{width: '100%', height: "350px", position: 'absolute' }}>
+                    <img style={{ width: '100%', height:'200px', objectFit: 'cover' }} src={"https://andesrestaurant.herokuapp.com/api" + this.state.resturant.image} alt='pic' />
                     <li style={{ listStyleType: 'none', color: 'orange', fontSize: '1.5rem' }}><b>{this.state.resturant.name}</b></li>
                     <li style={{ listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' style={{ marginLeft: '0px', marginRight: '10px' }} />{this.state.resturant.address}</li>
                     <li style={{ listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' style={{ marginLeft: '0px', marginRight: '10px' }} />{this.state.resturant.contact}</li>
@@ -111,7 +111,7 @@ class Details extends React.Component {
                         </Row>
                     </div>
                 </div>
-                <div className="overflow-auto" style={{ height: '40%', backgroundColor:'rgba(247,247,247,1)' }} >
+                <div className="overflow-auto" style={{width: '100%', marginTop:'350px', position: 'absolute', top:'0', bottom:'0', backgroundColor:'rgba(247,247,247,1)' }} >
                     {this.state.reviews.map((review, index) => {
                         return (<div className='p-1 pe-3' key={'review' + index}>
                             <div className="bg-white rounded shadow-sm overflow-hidden p-2">

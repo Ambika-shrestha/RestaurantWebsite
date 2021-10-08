@@ -67,7 +67,7 @@ class Gallary extends React.Component {
                                 <div className="p-2" key={'column' + index} >
                                     <div className="buttonPlace bg-white rounded shadow-sm overflow-hidden">
                                         <div className="imgPlace">
-                                            <img style={{ width: '100%' }} src={burger} alt='pic' />
+                                            <img style={{ width: '100%', height:'200px', objectFit: 'cover' }} src={"https://andesrestaurant.herokuapp.com/api" + resturant.image} alt='pic' />
                                             <label>{resturant.avg.toFixed(1)}</label>
                                         </div>
                                         <li style={{ paddingLeft: '10px', listStyleType: 'none' }}><b>{resturant.name}</b></li>
