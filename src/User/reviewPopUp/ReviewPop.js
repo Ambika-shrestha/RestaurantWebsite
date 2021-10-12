@@ -146,7 +146,7 @@ class ReviewPop extends React.Component {
                     </div>
                     <div className='mb-2'>
                             <Button type="submit" className='mx-3' onClick={this.submitButtonClick} >Submit</Button>
-                            <Button className='bg-danger' onClick={this.handleClick}>Close</Button>
+                            <Button className='bg-danger border border-white' onClick={this.handleClick}>Close</Button>
                     </div>
                 </div>
             </div>

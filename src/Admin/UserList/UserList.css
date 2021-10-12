@@ -1,0 +1,19 @@
+tr {
+    height: 70px;
+    border: 1px solid black;
+}
+td {
+    min-width: 20px;
+    align-content: center;
+    text-align: center;
+}
+
+th{
+    min-width: 20px;
+    align-content: center;
+    text-align: center !important;
+}
+
+Button{
+    width: 80px;
+}

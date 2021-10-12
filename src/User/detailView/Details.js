@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import images from '../../img/images.jpg';
 import './detail.css';
 import StarRatings from 'react-star-ratings';
 import { FaLocationArrow, FaPhoneAlt, FaStar, FaPlusCircle, FaSort } from 'react-icons/fa';
@@ -103,10 +102,10 @@ class Details extends React.Component {
                                 <h4 className='h-100 m-auto'>Reviews</h4>
                             </Col>
                             <Col className="m-auto p-0">
-                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.sortComment}><FaSort color="black" /></Button>
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center border border-white' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.sortComment}><FaSort color="black" /></Button>
                             </Col>
                             <Col className="p-0 m-auto d-flex justify-content-end">
-                                <Button className='rounded p-0 d-flex justify-content-center align-items-center' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.popUp} ><FaPlusCircle color="black" /></Button>
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center border border-white' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.popUp} ><FaPlusCircle color="black" /></Button>
                             </Col>
                         </Row>
                     </div>

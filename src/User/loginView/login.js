@@ -84,6 +84,9 @@ class Login extends React.Component {
                 if (data['user']['is_superuser'] === false && data['user']['is_staff'] === false) {
                     this.props.history.push("/dashboard")
                 }
+                else{
+                    this.props.history.push("/adminDashboard")
+                }
 
             })
             .catch(error => {
