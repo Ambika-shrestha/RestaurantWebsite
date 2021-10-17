@@ -1,17 +1,20 @@
-tr {
+tr{
     height: 70px;
     text-align: center; 
     vertical-align: middle;
-    min-width: 100%;
+    color:gray;
     
 }
+
 td, th {
-    min-width: 100% !important;
     text-align: center; 
     vertical-align: middle;
-    min-width: 100%;
+    color:gray;  
+} 
+.button-edit-delete{
+    width: 30px;
 }
 
-Button{
-    width: 30px;
+.example::-webkit-scrollbar {
+    display: none;
 }
