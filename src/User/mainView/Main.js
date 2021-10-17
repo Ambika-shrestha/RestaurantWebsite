@@ -45,7 +45,7 @@ class Main extends React.Component {
                                         Log in
                                     </Button>
                                     <Button className="me-4 h-75"
-                                        style={{ backgroundColor: isLoginClick ? 'transparent' : 'black', color: isLoginClick ? 'black' : 'white', borderRadius: '30px'}}
+                                        style={{ backgroundColor: isLoginClick ? 'transparent' : 'black', color: isLoginClick ? 'black' : 'white', borderRadius: '30px', width: '100px'}}
                                         type="submit" variant="contained" onClick={this.signupButton}>
                                         Sign up
                                     </Button>

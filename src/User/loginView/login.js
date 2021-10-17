@@ -139,7 +139,7 @@ class Login extends React.Component {
                         </Form.Group>
                     </Row>
                     <Row className='d-flex justify-content-center h-10'>
-                        {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> : <Button className={`w-50 gradient ml-2`} type="submit" onClick={this.loginAction}>
+                        {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> : <Button className={`w-50 gradient ml-2 border border-white`} type="submit" onClick={this.loginAction}>
                             Log in
                         </Button>}
                     </Row>
