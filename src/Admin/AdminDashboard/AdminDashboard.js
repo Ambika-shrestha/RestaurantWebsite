@@ -36,7 +36,7 @@ class AdminDashboard extends React.Component {
                                     <FaPlusCircle /> </Button></a>
                         </li>
                     </ul>
-                    <div className='bg-white p-5 shadow-sm'>
+                    <div className='bg-white shadow-sm' style={{height:'95%'}}>
                         <UserList />
                     </div>
 

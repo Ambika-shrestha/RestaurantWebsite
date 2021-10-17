@@ -1,17 +1,15 @@
 tr {
     height: 70px;
-    border: 1px solid black;
+    text-align: center; 
+    vertical-align: middle;
+    min-width: 100%;
+    
 }
-td {
-    min-width: 20px;
-    align-content: center;
-    text-align: center;
-}
-
-th{
-    min-width: 20px;
-    align-content: center;
-    text-align: center !important;
+td, th {
+    min-width: 100% !important;
+    text-align: center; 
+    vertical-align: middle;
+    min-width: 100%;
 }
 
 Button{
