@@ -1,7 +1,8 @@
 import React from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { FaPlusCircle } from 'react-icons/fa';
 import UserList from '../UserList/UserList'
+import AddUser from '../AddUser/AddUser';
 
 
 class AdminDashboard extends React.Component {
@@ -9,7 +10,15 @@ class AdminDashboard extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            modalOpened: false
         }
+        this.addUserBtn = this.addUserBtn.bind(this)
+    }
+
+    addUserBtn = () =>{
+        this.setState({
+            modalOpened: !this.state.modalOpened
+        });
     }
 
     render() {
@@ -20,7 +29,9 @@ class AdminDashboard extends React.Component {
                         <div className="nav-item me-2">
                             <a className="nav-link text-white d-flex align-items-center "
                                 style={{ borderRadius: '15px 15px 0px 0px', height: '60px', width: '130px', backgroundColor: 'rgba(57, 109, 229, 1)' }} aria-current="page" href="#">User
-                                <Button className='ms-5 border-0 d-flex justify-content-center align-items-center p-0' style={{ backgroundColor: 'rgba(57, 109, 229, 1)', height: '20px', width: '20px' }}>
+                                <Button className='ms-5 border-0 d-flex justify-content-center align-items-center p-0' 
+                                style={{ backgroundColor: 'rgba(57, 109, 229, 1)', height: '20px', width: '20px' }}
+                                onClick={this.addUserBtn}>
                                     <FaPlusCircle /> </Button></a>
                         </div>
                         <li className="nav-item me-2">
@@ -37,10 +48,10 @@ class AdminDashboard extends React.Component {
                         </li>
                     </ul>
                     <div className='bg-white shadow-sm' style={{height:'95%'}}>
-                        <UserList />
+                        <UserList/>
                     </div>
-
                 </div>
+                {this.state.modalOpened && <AddUser toggle={this.addUserBtn} />}
             </div>
         )
     }

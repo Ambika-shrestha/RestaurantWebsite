@@ -1,0 +1,41 @@
+.formCardAddUser{
+    padding-left: 20px;
+    padding-right: 30px;
+    width: 400px;
+}
+
+.formCardAddUser h4{
+    margin-bottom: 1em;
+    color:rgb(0, 0, 0);
+}
+.input:focus{
+    outline:none !important;
+    box-shadow: none !important;
+    border: 1px solid #333333;
+}
+
+.gradient{
+    background-image: linear-gradient(to right, #ffa550 0%,#f1b47a 100%)
+}
+
+.popup{
+    top:0;
+    position:absolute;
+    z-index: 1;
+    background-color:rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    text-align: center;
+}
+
+@media (max-width: 540px) {
+    .popup{
+        top:0;
+        position:absolute;
+        z-index: 1;
+        background-color:rgba(0,0,0,0.5);
+        height: 200vh;
+        width: 100%;
+        text-align: center;
+    }    
+}
