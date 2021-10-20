@@ -155,7 +155,7 @@ class Signup extends React.Component {
                     isspinning: false
                 });
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    return response.json().then(json => { throw json.detail; });
                 }
                 else {
                     return response.json();
@@ -173,7 +173,7 @@ class Signup extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: 'User already exist'
+                    error: error
                 })
             })
     }

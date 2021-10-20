@@ -69,7 +69,7 @@ class Login extends React.Component {
                     isspinning: false
                 });
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    return response.json().then(json => { throw json.detail; });
                 }
                 else {
                     return response.json();
@@ -84,14 +84,14 @@ class Login extends React.Component {
                 if (data['user']['is_superuser'] === false && data['user']['is_staff'] === false) {
                     this.props.history.push("/dashboard")
                 }
-                else{
+                else {
                     this.props.history.push("/adminDashboard")
                 }
 
             })
             .catch(error => {
                 this.setState({
-                    error: 'Unauthorized user !'
+                    error: error
                 })
             })
     }

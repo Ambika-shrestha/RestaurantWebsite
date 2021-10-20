@@ -2,7 +2,7 @@ import React from 'react'
 import { withRouter } from 'react-router-dom';
 import { Form, Col, InputGroup, Spinner, Button, Row } from 'react-bootstrap'
 import { AiOutlineUser, AiOutlineLock, AiOutlineMail, AiOutlineKey } from 'react-icons/ai';
-import { RiUserSettingsLine} from "react-icons/ri";
+import { RiUserSettingsLine } from "react-icons/ri";
 import './AddUser.css'
 
 
@@ -55,7 +55,7 @@ class AddUser extends React.Component {
                 usernameError: 'Please enter username',
                 passwordError: 'Please enter password',
                 confirmPasswordError: 'Please enter confirm password',
-                roleError:'Please select a role'
+                roleError: 'Please select a role'
             })
             return false;
         }
@@ -178,7 +178,7 @@ class AddUser extends React.Component {
                     isspinning: false
                 });
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    return response.json().then(json => { throw json.detail; });
                 }
                 else {
                     return response.json();
@@ -192,7 +192,7 @@ class AddUser extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: 'User already exist'
+                    error: error
                 })
             })
     }
@@ -203,7 +203,7 @@ class AddUser extends React.Component {
                 <div className={`formCardAddUser mx-auto bg-light p-3 rounded shadow`}>
                     <Form>
                         {this.state.error !== '' ? <h3 className="text-center" style={{ color: 'red' }}>{this.state.error}</h3> : undefined}
-                        <h4 className="text-center">Sign up</h4>
+                        <h4 className="text-center">Add user</h4>
                         <Row>
                             <Form.Group as={Col} className="mb-2">
                                 <InputGroup className="mb-2">
@@ -292,31 +292,31 @@ class AddUser extends React.Component {
                                 </InputGroup>
                             </Form.Group>
                         </Row>
-                        <Row  className="mb-2">
-                        <Form.Group as={Col} className="mb-2">
-                        <InputGroup className="mb-2">
-                            <InputGroup.Text  className="me-2 bg-transparent border-0"><RiUserSettingsLine/></InputGroup.Text>
-                                <Form.Check 
-                                    className="me-2"
-                                    type='radio'
-                                    label='Admin'
-                                    name='role'
-                                    value='Admin'
-                                    onChange={this.handleChange}
-                                    checked={this.state.role === 'Admin'}
-                                />
-                                <Form.Check
-                                    type='radio'
-                                    label='User'
-                                    name='role'
-                                    value='User'
-                                    onChange={this.handleChange}
-                                    checked={this.state.role === 'User'}
-                                />
-                                <Form.Control.Feedback type="invalid" style={{ display: this.state.roleError === '' ? 'none' : 'block' }}>
+                        <Row className="mb-2">
+                            <Form.Group as={Col} className="mb-2">
+                                <InputGroup className="mb-2">
+                                    <InputGroup.Text className="me-2 bg-transparent border-0"><RiUserSettingsLine /></InputGroup.Text>
+                                    <Form.Check
+                                        className="me-2"
+                                        type='radio'
+                                        label='Admin'
+                                        name='role'
+                                        value='Admin'
+                                        onChange={this.handleChange}
+                                        checked={this.state.role === 'Admin'}
+                                    />
+                                    <Form.Check
+                                        type='radio'
+                                        label='User'
+                                        name='role'
+                                        value='User'
+                                        onChange={this.handleChange}
+                                        checked={this.state.role === 'User'}
+                                    />
+                                    <Form.Control.Feedback type="invalid" style={{ display: this.state.roleError === '' ? 'none' : 'block' }}>
                                         {this.state.roleError}
                                     </Form.Control.Feedback>
-                                  </InputGroup>
+                                </InputGroup>
                             </Form.Group>
                         </Row>
                         <div className='d-flex justify-content-center'>

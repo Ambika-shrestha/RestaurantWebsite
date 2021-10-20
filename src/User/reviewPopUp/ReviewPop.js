@@ -56,7 +56,7 @@ class ReviewPop extends React.Component {
     addReviewApi = () => {
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' , 'Authorization': 'token ' + localStorage.getItem('token')},
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'token ' + localStorage.getItem('token') },
             body: JSON.stringify({
                 user: parseInt(localStorage.getItem('user')),
                 rating: this.state.rating,
@@ -69,8 +69,7 @@ class ReviewPop extends React.Component {
             .then(response => {
                 console.log('response', response, requestOptions)
                 if (!response.ok) {
-                    debugger
-                    throw new Error(response.status);
+                    return response.json().then(json => { throw json.detail; });
                 }
                 else {
                     return response.json();
@@ -85,7 +84,7 @@ class ReviewPop extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: 'Unauthorized user !'
+                    error: error
                 })
             })
     }
@@ -122,17 +121,17 @@ class ReviewPop extends React.Component {
                         </Col>
                     </Row>
                     <Form className="d-flex justify-content-center mb-4 mt-4">
-                        <Form.Group style={{width:'300px'}} controlId="exampleForm.ControlTextarea1">
+                        <Form.Group style={{ width: '300px' }} controlId="exampleForm.ControlTextarea1">
                             <h5><b>Comments</b></h5>
-                            <Form.Control className="w-100" as="textarea" rows={3}  value={this.state.comment}
-                                    name= 'comment'
-                                    onChange={this.handleChange} />
+                            <Form.Control className="w-100" as="textarea" rows={3} value={this.state.comment}
+                                name='comment'
+                                onChange={this.handleChange} />
                         </Form.Group>
                     </Form>
                     <div className='d-flex justify-content-center align-items-center'>
-                        <Row className="mb-4" style={{width:'330px'}}>
+                        <Row className="mb-4" style={{ width: '330px' }}>
                             <Col className='d-flex justify-content-center align-items-center'>
-                                <label className='mt-1' style={{width:'200px'}}><b>Date of Visit</b></label>
+                                <label className='mt-1' style={{ width: '200px' }}><b>Date of Visit</b></label>
                                 <DatePicker
                                     className='d-flex justify-content-center align-items-center w-100'
                                     selected={this.state.dateOfVisit}
@@ -142,11 +141,11 @@ class ReviewPop extends React.Component {
                                 />
                             </Col>
                         </Row>
-                        
+
                     </div>
                     <div className='mb-2'>
-                            <Button type="submit" className='mx-3' onClick={this.submitButtonClick} >Submit</Button>
-                            <Button className='bg-danger border border-white' onClick={this.handleClick}>Close</Button>
+                        <Button type="submit" className='mx-3' onClick={this.submitButtonClick} >Submit</Button>
+                        <Button className='bg-danger border border-white' onClick={this.handleClick}>Close</Button>
                     </div>
                 </div>
             </div>

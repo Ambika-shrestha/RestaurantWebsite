@@ -68,7 +68,7 @@ class Details extends React.Component {
         fetch('https://andesrestaurant.herokuapp.com/api/restaurants/' + this.props.resturant.id + '/reviews', requestOptions)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    return response.json().then(json => { throw json.detail; });
                 }
                 else {
                     return response.json();
@@ -82,16 +82,16 @@ class Details extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: 'Unknown Error'
+                    error: error
                 })
             })
     }
 
     render() {
         return (
-            <div style={{ height: '95vh', backgroundColor:'rgba(247,247,247,1)', position: 'relative' }}>
-                <div className="p-2" style={{width: '100%', height: "350px", position: 'absolute' }}>
-                    <img style={{ width: '100%', height:'200px', objectFit: 'cover' }} src={"https://andesrestaurant.herokuapp.com/api" + this.state.resturant.image} alt='pic' />
+            <div style={{ height: '95vh', backgroundColor: 'rgba(247,247,247,1)', position: 'relative' }}>
+                <div className="p-2" style={{ width: '100%', height: "350px", position: 'absolute' }}>
+                    <img style={{ width: '100%', height: '200px', objectFit: 'cover' }} src={"https://andesrestaurant.herokuapp.com/api" + this.state.resturant.image} alt='pic' />
                     <li style={{ listStyleType: 'none', color: 'orange', fontSize: '1.5rem' }}><b>{this.state.resturant.name}</b></li>
                     <li style={{ listStyleType: 'none', color: 'gray' }}><FaLocationArrow color='blue' style={{ marginLeft: '0px', marginRight: '10px' }} />{this.state.resturant.address}</li>
                     <li style={{ listStyleType: 'none', color: 'gray' }}><FaPhoneAlt color='red' style={{ marginLeft: '0px', marginRight: '10px' }} />{this.state.resturant.contact}</li>
@@ -102,39 +102,39 @@ class Details extends React.Component {
                                 <h4 className='h-100 m-auto'>Reviews</h4>
                             </Col>
                             <Col className="m-auto p-0">
-                                <Button className='rounded p-0 d-flex justify-content-center align-items-center border border-white' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.sortComment}><FaSort color="black" /></Button>
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center border border-white' style={{ width: '20px', height: '20px', backgroundColor: 'orange' }} onClick={this.sortComment}><FaSort color="black" /></Button>
                             </Col>
                             <Col className="p-0 m-auto d-flex justify-content-end">
-                                <Button className='rounded p-0 d-flex justify-content-center align-items-center border border-white' style={{ width: '20px', height: '20px', backgroundColor:'orange' }} onClick={this.popUp} ><FaPlusCircle color="black" /></Button>
+                                <Button className='rounded p-0 d-flex justify-content-center align-items-center border border-white' style={{ width: '20px', height: '20px', backgroundColor: 'orange' }} onClick={this.popUp} ><FaPlusCircle color="black" /></Button>
                             </Col>
                         </Row>
                     </div>
                 </div>
-                <div className="overflow-auto" style={{width: '100%', marginTop:'350px', position: 'absolute', top:'0', bottom:'0', backgroundColor:'rgba(247,247,247,1)' }} >
+                <div className="overflow-auto" style={{ width: '100%', marginTop: '350px', position: 'absolute', top: '0', bottom: '0', backgroundColor: 'rgba(247,247,247,1)' }} >
                     {this.state.reviews.map((review, index) => {
                         return (<div className='p-1 pe-3' key={'review' + index}>
                             <div className="bg-white rounded shadow-sm overflow-hidden p-2">
-                            <li style={{ listStyleType: 'none' }}><b>{review.user.first_name + ' ' + review.user.last_name}</b></li>
-                            <li style={{ listStyleType: 'none' }}>
-                                <Row className="row-cols-2" style={{ margin: '0px' }}>
-                                    <Col className="col-lg-4" style={{ paddingLeft: '0px', paddingRight: '0px', }}>
-                                        <StarRatings
-                                            rating={review.rating}
-                                            starRatedColor="orange"
-                                            numberOfStars={5}
-                                            name='rating'
-                                            starDimension='20px'
-                                            starSpacing="2px"
-                                        />
-                                    </Col>
-                                    <Col className="col-md-auto" style={{ paddingLeft: '0px', paddingRight: '0px',  height:'25px' }}>
-                                        <h6 style={{ marginTop: '7px' }}>
-                                            {this.dateConversion(review.date)}
-                                        </h6>
-                                    </Col>
-                                </Row>
-                            </li>
-                            <li style={{ listStyleType: 'none' }}><label>{review.comment}</label></li>
+                                <li style={{ listStyleType: 'none' }}><b>{review.user.first_name + ' ' + review.user.last_name}</b></li>
+                                <li style={{ listStyleType: 'none' }}>
+                                    <Row className="row-cols-2" style={{ margin: '0px' }}>
+                                        <Col className="col-lg-4" style={{ paddingLeft: '0px', paddingRight: '0px', }}>
+                                            <StarRatings
+                                                rating={review.rating}
+                                                starRatedColor="orange"
+                                                numberOfStars={5}
+                                                name='rating'
+                                                starDimension='20px'
+                                                starSpacing="2px"
+                                            />
+                                        </Col>
+                                        <Col className="col-md-auto" style={{ paddingLeft: '0px', paddingRight: '0px', height: '25px' }}>
+                                            <h6 style={{ marginTop: '7px' }}>
+                                                {this.dateConversion(review.date)}
+                                            </h6>
+                                        </Col>
+                                    </Row>
+                                </li>
+                                <li style={{ listStyleType: 'none' }}><label>{review.comment}</label></li>
                             </div>
                         </div>)
                     })}

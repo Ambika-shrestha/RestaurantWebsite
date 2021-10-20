@@ -37,7 +37,7 @@ class Gallary extends React.Component {
         fetch('https://andesrestaurant.herokuapp.com/api/restaurants', requestOptions)
             .then(response => {
                 if (!response.ok) {
-                    throw new Error(response.status);
+                    return response.json().then(json => { throw json.detail; });
                 }
                 else {
                     return response.json();
@@ -51,7 +51,7 @@ class Gallary extends React.Component {
             })
             .catch(error => {
                 this.setState({
-                    error: 'Unknown Error'
+                    error: error
                 })
             })
     }
@@ -66,18 +66,18 @@ class Gallary extends React.Component {
                                 <div className="p-2" key={'column' + index} >
                                     <div className="buttonPlace bg-white rounded shadow-sm overflow-hidden">
                                         <div className="imgPlace">
-                                            <img style={{ width: '100%', height:'200px', objectFit: 'cover' }} src={"https://andesrestaurant.herokuapp.com/api" + resturant.image} alt='pic' />
+                                            <img style={{ width: '100%', height: '200px', objectFit: 'cover' }} src={"https://andesrestaurant.herokuapp.com/api" + resturant.image} alt='pic' />
                                             <label>{resturant.avg.toFixed(1)}</label>
                                         </div>
                                         <li style={{ paddingLeft: '10px', listStyleType: 'none' }}><b>{resturant.name}</b></li>
                                         <li style={{ paddingLeft: '10px', listStyleType: 'none', color: 'gray' }}>{resturant.address}</li>
-                                        <Button className='btn' onClick={this.onSubmit} id={resturant.id}></Button> 
+                                        <Button className='btn' onClick={this.onSubmit} id={resturant.id}></Button>
                                     </div>
                                 </div>
                             )
                         })
                     }
-                </div> 
+                </div>
             </div>
         )
     }
