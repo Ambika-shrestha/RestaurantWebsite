@@ -68,15 +68,9 @@ class UserEdit extends React.Component {
             })
             return false;
         }
-        if (this.state.email === '') {
+        if (this.state.username === '') {
             this.setState({
-                emailError: "Please enter email"
-            })
-            return false;
-        }
-        if (!this.checkEmail()) {
-            this.setState({
-                emailError: "Invalid email"
+                usernameError: "Please enter username"
             })
             return false;
         }
@@ -92,9 +86,15 @@ class UserEdit extends React.Component {
             })
             return false;
         }
-        if (this.state.username === '') {
+        if (this.state.email === '') {
             this.setState({
-                usernameError: "Please enter username"
+                emailError: "Please enter email"
+            })
+            return false;
+        }
+        if (!this.checkEmail()) {
+            this.setState({
+                emailError: "Invalid email"
             })
             return false;
         }
