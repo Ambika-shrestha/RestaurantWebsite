@@ -160,7 +160,10 @@ class AddUser extends React.Component {
         });
         const requestOptions = {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json' ,
+                 'Authorization': 'Token ' + localStorage.getItem('token')
+                },
             body: JSON.stringify({
                 email: this.state.email,
                 username: this.state.username,

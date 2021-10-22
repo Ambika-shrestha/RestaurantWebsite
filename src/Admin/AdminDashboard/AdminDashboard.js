@@ -6,6 +6,9 @@ import AddUser from '../User/AddUser/AddUser';
 import UserEdit from '../User/UserEdit/UserEdit';
 import ResturantList from '../Resturant/ResturantList/ResturantList';
 import ReviewsList from '../Reviews/ReviewList/ReviewsList';
+import AddResturant from '../Resturant/ResturantAdd/AddResturant';
+import ResturantEdit from '../Resturant/ResturantEdit/ResturantEdit';
+import AddReviews from '../Reviews/AddReviews/AddReviews';
 
 
 class AdminDashboard extends React.Component {
@@ -15,8 +18,12 @@ class AdminDashboard extends React.Component {
         this.state = {
             modalOpened: false,
             modalEditOpened: false,
+            modalResturantOpened:false,
+            modalResturantEditOpened:false,
+            modalReviewOpened: false,
             selectedIndex: 1,
-            user: null
+            user: null,
+            resturant:null
         }
         this.addUserBtn = this.addUserBtn.bind(this)
         this.selectedTab = this.selectedTab.bind(this)
@@ -31,11 +38,15 @@ class AdminDashboard extends React.Component {
     }
 
     addResturantBtn = () =>{
-
+        this.setState({
+            modalResturantOpened: !this.state.modalResturantOpened
+        });
     }
     
     addReviewsBtn = () =>{
-        
+        this.setState({
+            modalReviewOpened: !this.state.modalReviewOpened
+        });
     }
 
     selectedTab = (id) => {
@@ -49,6 +60,15 @@ class AdminDashboard extends React.Component {
             user: editPopuser
         })
     }
+
+    toggleEditResturant = (editResturentPop) =>{
+        this.setState({
+            modalResturantEditOpened : !this.state.modalResturantEditOpened,
+            resturant: editResturentPop
+
+        })
+    }
+
     render() {
         return (
             <div className='vh-100' style={{ backgroundColor: 'rgba(244,248,249,1)' }}>
@@ -99,12 +119,15 @@ class AdminDashboard extends React.Component {
                     </ul>
                     <div className='bg-white shadow-sm' style={{ height: '95%' }}>
                         {this.state.selectedIndex === 1 && <UserList userEditPopUpToggle={this.userEditPopUpToggle} />}
-                        {this.state.selectedIndex === 2 && <ResturantList />}
+                        {this.state.selectedIndex === 2 && <ResturantList toggleEditResturant={this.toggleEditResturant}/>}
                         {this.state.selectedIndex === 3 && <ReviewsList />}
                     </div>
                 </div>
                 {this.state.modalOpened && <AddUser toggle={this.addUserBtn} />}
                 {this.state.modalEditOpened && <UserEdit user={this.state.user} userEditPopUpToggle={this.userEditPopUpToggle} />}
+                {this.state.modalResturantOpened && <AddResturant toggleResturant={this.addResturantBtn} />}
+                {this.state.modalResturantEditOpened && <ResturantEdit resturant={this.state.resturant} toggleEditResturant={this.toggleEditResturant}/>}
+                {this.state.modalReviewOpened && <AddReviews toggleReviews={this.addReviewsBtn}/>}
             </div>
         )
     }
