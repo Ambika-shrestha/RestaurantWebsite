@@ -1,7 +1,9 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import { Form, Col, InputGroup, Spinner, Button, Row } from 'react-bootstrap'
-import { AiOutlineUser, AiOutlineLock, AiOutlineMail, AiOutlineKey } from 'react-icons/ai';
+import StarRatings from 'react-star-ratings';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import './AddReviews.css'
 
 
@@ -10,21 +12,25 @@ class AddReviews extends React.Component {
         super(props)
         this.state = {
             user: '',
-            rating: '',
+            rating: 0,
             comment: '',
             resturant: '',
-            date: '',
+            dateOfVisit: new Date(),
             error: '',
             isspinning: false,
             userError: '',
             ratingError: '',
             commentError: '',
-            dateError: '',
-            resturantError: ''
+            dateOfVisitError: '',
+            resturantError: '',
+            getUserList: [],
+            getResturantList: []
         }
         this.handleChange = this.handleChange.bind(this)
         this.addReviwButton = this.addReviwButton.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.userSelectClicked = this.userSelectClicked.bind(this)
+        this.resturantSelectClicked = this.resturantSelectClicked.bind(this)
     }
 
     handleChange = (event) => {
@@ -36,56 +42,30 @@ class AddReviews extends React.Component {
             [name + 'Error']: ''
         });
     }
-
-    handleClick = () => {
-        this.props.toggle();
-    };
-    validation = () => {
-        if (this.state.user === '' && this.state.rating === '' && this.state.comment === ''
-            && this.state.date === '' && this.state.resturant === '') {
-            this.setState({
-                userError: 'Please enter email',
-                ratingError: 'Please enter first name',
-                commentError: 'Please enter last name',
-                dateError: 'Please enter username',
-                restturantError: 'Please enter password'
-            })
-            return false;
-        }
-        if (this.state.user === '') {
-            this.setState({
-                userError: "Please enter user"
-            })
-            return false;
-        }
-        if (!this.state.rating) {
-            this.setState({
-                ratingError: "Please enter rating"
-            })
-            return false;
-        }
-        if (this.state.comment === '') {
-            this.setState({
-                commentError: "Please enter comment"
-            })
-            return false;
-        }
-        if (this.state.date === '') {
-            this.setState({
-                dateError: "Please enter date"
-            })
-            return false;
-        }
-        if (this.state.resturant === '') {
-            this.setState({
-                resturantError: "Please enter resturant"
-            })
-            return false;
-        }
-        return true
+    changeRating = (newratings) => {
+        this.setState({
+            rating: newratings
+        });
+    }
+    didSelectDate = (selectedDate) => {
+        console.log(selectedDate)
+        this.setState({
+            dateOfVisit: selectedDate,
+        })
+    }
+    userSelectClicked = () => {
+        this.getuserListApi()
+    }
+    resturantSelectClicked = () => {
+        this.getResturantListApi()
     }
 
+    handleClick = () => {
+        this.props.toggleReviews();
+    };
+
     addReviwButton = (event) => {
+        console.log('add reviews button clicked');
         event.preventDefault()
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
@@ -99,6 +79,105 @@ class AddReviews extends React.Component {
         if (this.validation()) {
             this.addReviewApi()
         }
+    };
+
+    validation = () => {
+        if (this.state.user === '' && this.state.resturant === '' && this.state.comment === ''
+            && this.state.dateOfVisit === '' && this.state.rating === '') {
+            this.setState({
+                userError: 'Please enter user',
+                resturantError: 'Please enter resturant',
+                commentError: 'Please enter comment',
+                dateOfVisitError: 'Please enter date of visit',
+                ratingError: 'Please rate'
+            })
+            return false;
+        }
+        if (this.state.user === '') {
+            this.setState({
+                userError: "Please enter user"
+            })
+            return false;
+        }
+        if (this.state.resturant === '') {
+            this.setState({
+                resturantError: "Please enter resturant"
+            })
+            return false;
+        }
+        if (this.state.comment === '') {
+            this.setState({
+                commentError: "Please enter comment"
+            })
+            return false;
+        }
+        if (this.state.dateOfVisit === '') {
+            this.setState({
+                dateOfVisitError: "Please enter date"
+            })
+            return false;
+        }
+        if (!this.state.rating) {
+            this.setState({
+                ratingError: "Please enter rating"
+            })
+            return false;
+        }
+        return true
+    }
+
+    getResturantListApi = () => {
+        fetch("https://andesrestaurant.herokuapp.com/api/restaurants", {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(json => { throw json.detail; });
+                }
+                else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                this.setState({
+                    getResturantList: data
+                })
+            })
+            .catch(error => {
+                this.setState({
+                    error: error
+                })
+            })
+    }
+
+    getuserListApi = () => {
+        fetch("https://andesrestaurant.herokuapp.com/api/users", {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(json => { throw json.detail; });
+                }
+                else {
+                    return response.json();
+                }
+            })
+            .then(data => {
+                this.setState({
+                    getUserList: data
+                })
+            })
+            .catch(error => {
+                this.setState({
+                    error: error
+                })
+            })
     }
 
     addReviewApi = () => {
@@ -107,18 +186,19 @@ class AddReviews extends React.Component {
         });
         const requestOptions = {
             method: 'POST',
-            headers: { 
-                'Content-Type': 'application/json' ,
-                 'Authorization': 'Token ' + localStorage.getItem('token')
-                },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + localStorage.getItem('token')
+            },
             body: JSON.stringify({
-                user: this.state.user,
+                user: parseInt(this.state.user),
                 rating: this.state.rating,
                 comment: this.state.comment,
-                date: this.state.date,
-                resturant: this.state.resturant
+                date: Math.round((this.state.dateOfVisit).getTime() / 1000),
+                restaurant: parseInt(this.state.resturant)
             })
         };
+
         fetch('https://andesrestaurant.herokuapp.com/api/reviews', requestOptions)
             .then(response => {
                 this.setState({
@@ -153,41 +233,39 @@ class AddReviews extends React.Component {
                         <h4 className="text-center">Add Reviews</h4>
                         <Row>
                             <Form.Group as={Col} className="mb-2">
-                                <InputGroup className="mb-2">
-
-                                    <InputGroup.Text><AiOutlineMail /></InputGroup.Text>
-
-                                    <Form.Control type="text" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" className='input' name="user" placeholder="User" required autoFocus
-                                        value={this.state.user}
-                                        onChange={this.handleChange} />
-                                    <Form.Control.Feedback type="invalid" style={{ display: this.state.emailError === '' ? 'none' : 'block' }}>
-                                        {this.state.userError}
-                                    </Form.Control.Feedback>
-                                </InputGroup>
+                                <select className="form-select"
+                                    name="user"
+                                    onClick={e => this.userSelectClicked(e)}
+                                    onChange={this.handleChange}>
+                                    <option>Select a user</option>
+                                    {this.state.getUserList.map((user, index) => {
+                                        return <option key={index} value={user.id}>{user.username}</option>
+                                    })}</select>
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.userError === '' ? 'none' : 'block' }}>
+                                    {this.state.userError}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                        </Row>
+                        <Row>
+                            <Form.Group as={Col} className="mb-2">
+                                <select className="form-select"
+                                    name="resturant"
+                                    onClick={e => this.resturantSelectClicked(e)}
+                                    onChange={this.handleChange}>
+                                    <option>Select a resturent</option>
+                                    {this.state.getResturantList.map((resturant, index) => {
+                                        return <option key={index} value={resturant.id}>{resturant.name}</option>;
+                                    })}
+                                </select>
+                                <Form.Control.Feedback type="invalid" style={{ display: this.state.resturantError === '' ? 'none' : 'block' }}>
+                                    {this.state.resturantError}
+                                </Form.Control.Feedback>
                             </Form.Group>
                         </Row>
                         <Row>
                             <Form.Group as={Col} className="mb-2">
                                 <InputGroup className="mb-2">
-
-                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
-
-                                    <Form.Control type="text" className='input' name="rating" placeholder="rating" required autoFocus
-                                        value={this.state.rating}
-                                        onChange={this.handleChange} />
-                                    <Form.Control.Feedback type="invalid" style={{ display: this.state.ratingError === '' ? 'none' : 'block' }}>
-                                        {this.state.ratingError}
-                                    </Form.Control.Feedback>
-                                </InputGroup>
-                            </Form.Group>
-                        </Row>
-                        <Row>
-                            <Form.Group as={Col} className="mb-2">
-                                <InputGroup className="mb-2">
-
-                                    <InputGroup.Text><AiOutlineUser /></InputGroup.Text>
-
-                                    <Form.Control type="text" className='input' name="comment" placeholder="Comment" required autoFocus
+                                    <Form.Control as="textarea" className='input' name="comment" placeholder="Comment" required autoFocus
                                         value={this.state.comment}
                                         onChange={this.handleChange} />
                                     <Form.Control.Feedback type="invalid" style={{ display: this.state.commentError === '' ? 'none' : 'block' }}>
@@ -196,38 +274,40 @@ class AddReviews extends React.Component {
                                 </InputGroup>
                             </Form.Group>
                         </Row>
-                        <Row>
-                            <Form.Group as={Col} className="mb-2">
-                                <InputGroup className="mb-2">
-
-                                    <InputGroup.Text><AiOutlineKey /></InputGroup.Text>
-
-                                    <Form.Control type="text" className='input' name="date" placeholder="date" required autoFocus
-                                        value={this.state.date}
-                                        onChange={this.handleChange} />
-                                    <Form.Control.Feedback type="invalid" style={{ display: this.state.dateError === '' ? 'none' : 'block' }}>
-                                        {this.state.dateError}
-                                    </Form.Control.Feedback>
-                                </InputGroup>
-                            </Form.Group>
+                        {/* <div className='d-flex justify-content-center align-items-center'> */}
+                        <Row className="mb-4" style={{ width: '330px' }}>
+                            <Col className='d-flex justify-content-center align-items-center'>
+                                <label className='mt-1' style={{ width: '200px' }}><b>Date of Visit</b></label>
+                                <DatePicker
+                                    className='d-flex justify-content-center align-items-center w-100'
+                                    selected={this.state.dateOfVisit}
+                                    maxDate={new Date()}
+                                    onChange={date => this.didSelectDate(date)}
+                                    dateFormat="dd/MMM/yyyy"
+                                />
+                            </Col>
                         </Row>
-                        <Row>
-                            <Form.Group as={Col} className="mb-2">
-                                <InputGroup className="mb-2">
-                                    <InputGroup.Text><AiOutlineLock /></InputGroup.Text>
-                                    <Form.Control type="text" name="resturant" className='input' placeholder="Resturant Name" required
-                                        value={this.state.resturant}
-                                        onChange={this.handleChange} />
-                                    <Form.Control.Feedback type="invalid" style={{ display: this.state.resturantError === '' ? 'none' : 'block' }}>
-                                        {this.state.resturantError}
-                                    </Form.Control.Feedback>
-                                </InputGroup>
-                            </Form.Group>
+
+                        {/* </div> */}
+                        <Row className='row justify-content-center mb-5' >
+                            <Col md={3.5} >
+                                <StarRatings
+                                    rating={this.state.rating}
+                                    changeRating={this.changeRating}
+                                    starRatedColor="orange"
+                                    numberOfStars={5}
+                                    name='rating'
+                                    starDimension='50px'
+                                    starSpacing="2px"
+                                    value={this.state.rating}
+                                />
+                            </Col>
                         </Row>
                         <div className='d-flex justify-content-center'>
-                            {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> : <Button className={`w-50 gradient border border-white`} onClick={this.addReviwButton} type="submit">
-                                Add
-                            </Button>}
+                            {this.state.isspinning ? <Spinner style={{ width: '3rem', height: '3rem' }} animation="border" variant="primary" /> :
+                                <Button className={`w-50 gradient border border-white`} onClick={this.addReviwButton} type="submit">
+                                    Add
+                                </Button>}
                             <Button className='bg-danger border border-white' onClick={this.handleClick}>Close</Button>
                         </div>
                     </Form>

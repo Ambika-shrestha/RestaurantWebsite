@@ -9,6 +9,7 @@ import ReviewsList from '../Reviews/ReviewList/ReviewsList';
 import AddResturant from '../Resturant/ResturantAdd/AddResturant';
 import ResturantEdit from '../Resturant/ResturantEdit/ResturantEdit';
 import AddReviews from '../Reviews/AddReviews/AddReviews';
+import ReviewsEdit from '../Reviews/ReviewsEdit/ReviewsEdit';
 
 
 class AdminDashboard extends React.Component {
@@ -21,9 +22,11 @@ class AdminDashboard extends React.Component {
             modalResturantOpened:false,
             modalResturantEditOpened:false,
             modalReviewOpened: false,
+            modalReviewEditOpened:false,
             selectedIndex: 1,
             user: null,
-            resturant:null
+            resturant:null,
+            reviews: null
         }
         this.addUserBtn = this.addUserBtn.bind(this)
         this.selectedTab = this.selectedTab.bind(this)
@@ -67,6 +70,15 @@ class AdminDashboard extends React.Component {
             resturant: editResturentPop
 
         })
+    }
+
+    toggleEditReviews = (editReviewsPop) => {
+        this.setState({
+            modalReviewEditOpened : !this.state.modalReviewEditOpened,
+            reviews: editReviewsPop
+
+        })
+
     }
 
     render() {
@@ -120,7 +132,7 @@ class AdminDashboard extends React.Component {
                     <div className='bg-white shadow-sm' style={{ height: '95%' }}>
                         {this.state.selectedIndex === 1 && <UserList userEditPopUpToggle={this.userEditPopUpToggle} />}
                         {this.state.selectedIndex === 2 && <ResturantList toggleEditResturant={this.toggleEditResturant}/>}
-                        {this.state.selectedIndex === 3 && <ReviewsList />}
+                        {this.state.selectedIndex === 3 && <ReviewsList toggleEditReviews={this.toggleEditReviews}/>}
                     </div>
                 </div>
                 {this.state.modalOpened && <AddUser toggle={this.addUserBtn} />}
@@ -128,6 +140,7 @@ class AdminDashboard extends React.Component {
                 {this.state.modalResturantOpened && <AddResturant toggleResturant={this.addResturantBtn} />}
                 {this.state.modalResturantEditOpened && <ResturantEdit resturant={this.state.resturant} toggleEditResturant={this.toggleEditResturant}/>}
                 {this.state.modalReviewOpened && <AddReviews toggleReviews={this.addReviewsBtn}/>}
+                {this.state.modalReviewEditOpened && <ReviewsEdit reviews={this.state.reviews} toggleEditReviews={this.toggleEditReviews}/>}
             </div>
         )
     }

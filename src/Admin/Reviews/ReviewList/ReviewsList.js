@@ -3,17 +3,17 @@ import Button from '@restart/ui/esm/Button'
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
 
-class ReviewsList extends React.Component{
+class ReviewsList extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
             users: '',
-            username:'',
-            rating:'',
-            comment:'',
-            date:'',
-            resturant:'',
+            username: '',
+            rating: '',
+            comment: '',
+            date: '',
+            resturant: '',
             reviewList: [],
             error: '',
             isspinning: false,
@@ -21,7 +21,7 @@ class ReviewsList extends React.Component{
             ratingError: '',
             commentError: '',
             dateError: '',
-            resturantError:''
+            resturantError: ''
         }
     }
 
@@ -31,13 +31,18 @@ class ReviewsList extends React.Component{
         this.reviewsListApi()
     }
 
-    deleteBtnClicked = (id) => {
-        console.log('id', id)
-        this.reviewDeleteApi(id)
+    dateConversion = (dateUnix) => {
+        const date = new Date(dateUnix * 1000);
+        return date.toLocaleString()
     }
 
-    editBtnClicked = (user) => {
-        //this.props.userEditPopUpToggle(user)
+
+    deleteBtnClicked = (id) => {
+        this.reviewsDeleteApi(id)
+    }
+
+    editBtnClicked = (id) => {
+        this.props.toggleEditReviews(id)
     }
 
     reviewsListApi = () => {
@@ -85,7 +90,7 @@ class ReviewsList extends React.Component{
             })
             .then(data => {
                 console.log('message', data.detail)
-                this.reviewListApi()
+                this.reviewsListApi()
             })
             .catch(error => {
                 this.setState({
@@ -102,7 +107,7 @@ class ReviewsList extends React.Component{
                         <thead>
                             <tr style={{ height: '30px' }}>
                                 <th style={{ minWidth: '30px', width: '10%' }}></th>
-                                <th style={{ minWidth: '80px', width: '15%' }}>USERNAME</th>
+                                <th style={{ minWidth: '80px', width: '15%' }}>NAME</th>
                                 <th style={{ minWidth: '80px', width: '15%' }}>RATING</th>
                                 <th style={{ minWidth: '80px', width: '20%' }}>COMMENT</th>
                                 <th style={{ minWidth: '80px', width: '15%' }}>DATE</th>
@@ -120,12 +125,11 @@ class ReviewsList extends React.Component{
                                     <tr className='border-1' key={index}>
                                         <td style={{ minWidth: '30px', width: '10%' }}>
                                             <label className='rounded' style={{ color: (((index + 1) % 2) === 0) ? 'blue' : 'orange', backgroundColor: (((index + 1) % 2) === 0) ? 'rgba(0,0,255,0.1)' : 'rgba(255,165,0,0.2)' }}>{index + 1}</label></td>
-                                        <td style={{ minWidth: '80px', width: '15%' }}>{review.user.username}</td>
+                                        <td style={{ minWidth: '80px', width: '15%' }}>{review.user.first_name} {review.user.last_name}</td>
                                         <td style={{ minWidth: '80px', width: '15%' }}>{review.rating}</td>
                                         <td style={{ minWidth: '80px', width: '20%' }}>{review.comment}</td>
-                                        <td style={{ minWidth: '80px', width: '15%' }} >{review.date}</td>
+                                        <td style={{ minWidth: '80px', width: '15%' }} >{(this.dateConversion(review.date))}</td>
                                         <td style={{ minWidth: '80px', width: '15%' }} >{review.restaurant}</td>
-                                        
                                         <td style={{ minWidth: '80px', width: '10%' }}>
                                             <Button className="button-edit-delete border-0 text-white rounded" onClick={e => this.editBtnClicked(review)} >
                                                 <FaEdit style={{ color: 'rgba(0,0,255,0.65)' }} />

@@ -1,7 +1,7 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom';
 import { Form, Col, InputGroup, Spinner, Button, Row } from 'react-bootstrap'
-import { AiOutlineUser, AiOutlineContacts, AiOutlineFileImage } from 'react-icons/ai';
+import { AiOutlineUser, AiOutlineContacts } from 'react-icons/ai';
 import { BiPhone } from "react-icons/bi";
 import './AddResturant.css'
 

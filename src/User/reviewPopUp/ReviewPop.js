@@ -138,6 +138,7 @@ class ReviewPop extends React.Component {
                                     maxDate={new Date()}
                                     onChange={date => this.didSelectDate(date)}
                                     dateFormat="dd/MMM/yyyy"
+                                    value={this.state.date}
                                 />
                             </Col>
                         </Row>
